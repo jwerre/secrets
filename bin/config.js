@@ -11,6 +11,7 @@ const env = argv.env || argv.e || ENV;
 const region = argv.r || argv.region || REGION;
 const namespace = argv.namespace || argv.n;
 const pretty = argv.pretty || argv.p;
+const delimiter = argv.delimiter || argv.d;
 const all = argv.all || argv.a;
 
 function showHelp () {
@@ -23,6 +24,7 @@ Options:
 -h, --help		Show help.
 -r, --region		The AWS SecretsManager region (default: ${REGION}).
 -e, --env		Which environment to use in the secret name (default: ${ENV}).
+-d, --delimiter		Secret name delimiter (default: /).
 -p, --pretty		Pretty output
 -a, --all		Ignore the environment and retrieve all secrets (default: false).
 -n, --namespace		Namespace of all parameters.
@@ -51,6 +53,10 @@ Options:
 	
 	if (all) {
 		options.all = true;
+	}
+	
+	if (delimiter) {
+		options.delimiter = delimiter;
 	}
 	
 	const secrets = new Secrets(options);

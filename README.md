@@ -47,8 +47,8 @@ const config = require('secrets').configSync({
 | -			| -					| -				|
 | delimiter | String			| delimiter used in secret names (default:`/`).
 | region	| String			| The AWS region where your secrets saved.
-| env 		| String  			| The environment or stage the secret belongs to e.g.: staging/database/secret. This is important when generating secret config so that only that only secrets for specific environments are used. If not provided `process.env.NODE_ENV` is used.
-| namespace | String\|Array 	| An optional namespace to be prepended. e.g.: my-namespace/production/database/secret. For multiple namespaces use an array.
+| env 		| String  			| The environment or stage the secret belongs to e.g.: `staging/database/secret`. This is important when generating secret config so that only that only secrets for specific environments are used. If not provided `process.env.NODE_ENV` is used.
+| namespace | String\|Array 	| An optional namespace to be prepended. e.g.: `my-namespace/production/database/secret`. For multiple namespaces use an array.
 | all 		| Boolean  			| Ignore the environment and retrieve all secrets.
 
 ## Naming Convention
