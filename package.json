@@ -1,0 +1,33 @@
+{
+  "name": "@jwerre/secrets",
+  "version": "0.0.1",
+  "description": "Synchronously retrieve all secretes from AWS Secrets Manager and create a tidy JSON object.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "keywords": [
+    "secrets manager",
+    "secrets",
+    "aws",
+    "configuration",
+    "config",
+    "encryption",
+    "kms",
+    "hash",
+    "app config",
+    "blocking",
+    "synchronous",
+    "cli"
+  ],
+  "author": "Jonah Werre <jonahwerre@gmail.com>",
+  "engine": "12",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.677.0"
+  },
+  "devDependencies": {
+    "minimist": "^1.2.5",
+    "mocha": "^7.1.2"
+  }
+}
