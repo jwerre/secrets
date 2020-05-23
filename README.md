@@ -47,7 +47,7 @@ const {config} = require('secrets');
 	let appConfig;
 	
 	try {
-		appConfig = config(options);
+		appConfig = await config(options);
 	} else (err) {
 		return Promise.reject(err)
 	}
