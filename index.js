@@ -4,7 +4,7 @@ const Secrets = require('./lib/secrets');
 module.exports.Secrets = Secrets;
 
 // example:
-// config = require('secrets').config(options)
+// config = await require('secrets').config(options)
 module.exports.config = function (options={}) { 
 
 	const secrets = new Secrets(options);

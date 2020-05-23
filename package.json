@@ -27,7 +27,9 @@
     "aws-sdk": "^2.677.0"
   },
   "devDependencies": {
+    "inquirer": "^7.1.0",
     "minimist": "^1.2.5",
-    "mocha": "^7.1.2"
+    "mocha": "^7.1.2",
+    "yaml": "^1.10.0"
   }
 }

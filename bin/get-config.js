@@ -13,12 +13,13 @@ const namespace = argv.namespace || argv.n;
 const pretty = argv.pretty || argv.p;
 const delimiter = argv.delimiter || argv.d;
 const all = argv.all || argv.a;
+const time = argv.time || argv.t;
 
 function showHelp () {
 	console.log(`
 Retrive all secrets from AWS Secrets Manager. 
 
-Usage: create-config --namespace my
+Usage: get-config --namespace mynamespace --env production --pretty
 
 Options:
 -h, --help		Show help.
@@ -28,6 +29,7 @@ Options:
 -p, --pretty		Pretty output
 -a, --all		Ignore the environment and retrieve all secrets (default: false).
 -n, --namespace		Namespace of all parameters.
+-t, --time		Display time it takes to retireve config.
 `);
 
 	return process.exit();
@@ -35,6 +37,10 @@ Options:
 
 
 (async function(){
+	
+	if (time) {
+		console.time( 'total time' );
+	}
 
 
 	if (argv.h || argv.help) {
@@ -83,5 +89,9 @@ Options:
 
 	}
 	
+	if (time) {
+		console.timeEnd( 'total time' );
+	}
+
 	
 })();
