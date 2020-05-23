@@ -1,6 +1,6 @@
 {
   "name": "@jwerre/secrets",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Synchronously retrieve all secretes from AWS Secrets Manager and create a tidy JSON object.",
   "main": "index.js",
   "scripts": {
