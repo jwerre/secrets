@@ -39,18 +39,18 @@ const config = require('secrets').configSync({
 
 ### Get a single secrets
 
-Loading *all* your secrets may not always be best options. In some cases you may want to just return a single secret. You can synchronously load a single secret like this:
+Loading *all* your secrets may not always be best options. It's much faster to load a single secret like this:
 
 ```js
 const config = require('secrets').secretSync({
-	region: 'us-west-2'
-	id: '/my-co/apis/'
+	region: 'us-west-2',
+	id: '/my-co/apis/',
 });
 ```
 
 ### Asynchronously get all secrets
 
-In most cases you'll want to get your configuration object synchronously since your app probably won't run without it. But, if you perfer, you can also get your secrets asynchronously.
+In most cases you'll want to get your configuration object synchronously since your app probably won't run without it. But, if you prefer, you can also get your secrets asynchronously.
 
 ```js
 const {config} = require('secrets');
@@ -73,11 +73,11 @@ const {config} = require('secrets');
 
 | Option 	| Type 				| Description	|
 | -			| -					| -				|
-| delimiter | String			| delimiter used in secret names (default:`/`).
-| region	| String			| The AWS region where your secrets are saved.
-| env 		| String  			| The environment or stage the secret belongs to e.g.: `staging/database/secret`. This is important when generating the configuration so that only that only secrets for specific environments are loaded. If not provided `process.env.NODE_ENV` is used.
-| namespace | String\|Array 	| An optional namespace to be prepended. e.g.: `my-namespace/production/database/secret`. For multiple namespaces use an array.
-| all 		| Boolean  			| Ignore the environment and retrieve all secrets.
+| delimiter | String			| delimiter used in secret names (default:`/`). |
+| region	| String			| The AWS region where your secrets are saved. |
+| env 		| String  			| The environment or stage the secret belongs to e.g.: `staging/database/secret`. This is important when generating the configuration so that only that only secrets for specific environments are loaded. If not provided `process.env.NODE_ENV` is used. |
+| namespace | String\|Array 	| An optional namespace to be prepended. e.g.: `my-namespace/production/database/secret`. For multiple namespaces use an array. |
+| all 		| Boolean  			| Ignore the environment and retrieve all secrets. |
 
 ## Naming Convention
 
@@ -117,7 +117,6 @@ You'll need to give you application or service permission to to access your secr
 
 If you plan on using any of the higher lever methods or any of the cli tool in the `bin` directory you'll need [additional permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awssecretsmanager.html). 
 
-
 ## API
 
 You may want to access the higher level API which can be done like this:
@@ -131,57 +130,64 @@ const config = secrets.configSync();
 ### Methods
 There's a handful of methods that wrap the AWS Secrets Manager SDK.
 
-`config({})`
+##### config({})
+
 Asynchronously retrieve configuration data with all secrets from AWS Secrets Manager. Options are the same as
 
 | Option 	| Type 				| Description	|
 | -			| -					| -				|
-| delimiter | String			| delimiter used in secret names (default:`/`).
-| region	| String			| The AWS region where your secrets are saved.
-| env 		| String  			| The environment or stage the secret belongs to e.g.: `staging/database/secret`. This is important when generating the configuration so that only that only secrets for specific environments are loaded. If not provided `process.env.NODE_ENV` is used.
-| namespace | String\|Array 	| An optional namespace to be prepended. e.g.: `my-namespace/production/database/secret`. For multiple namespaces use an array.
-| all 		| Boolean  			| Ignore the environment and retrieve all secrets.
+| delimiter | String			| delimiter used in secret names (default:`/`). |
+| region	| String			| The AWS region where your secrets are saved. |
+| env 		| String  			| The environment or stage the secret belongs to e.g.: `staging/database/secret`. This is important when generating the configuration so that only that only secrets for specific environments are loaded. If not provided `process.env.NODE_ENV` is used. |
+| namespace | String\|Array 	| An optional namespace to be prepended. e.g.: `my-namespace/production/database/secret`. For multiple namespaces use an array. |
+| all 		| Boolean  			| Ignore the environment and retrieve all secrets. |
 
-`configSync({})`
+##### configSync({})
+
 Synchronously retrieve configuration data with all secrets from AWS Secrets Manager. Options are the same as `config()`.
 
-`createSecret({})`
+##### createSecret({})
+
 create a new secret in AWS Secrets Manager. This method will automatically append the namespace and env it they are provided.
 
 | Option 		| Type 				| Description	|
 | -				| -					| -				|
-| name			| String			| Secret name.
-| description	| String			| Secret description.
-| secrets		| Object:String		| Secret.
-| secretsBinary	| secretsBinary		| Secret secrets as binary.
-| token			| String			| Client request token.
-| kms 			| Boolean  			| KMS key.
-| tags 			| [Object] 			| Secret tags.
+| name			| String			| Secret name. |
+| description	| String			| Secret description. |
+| secrets		| Object:String		| Secrets string or JSON Object. |
+| secretsBinary	| secretsBinary		| Secret secrets as binary. |
+| token			| String			| Client request token. |
+| kms 			| Boolean  			| KMS key. |
+| tags 			| [Object] 			| A list of secret tags. |
 
 
-`getSecret({})`
+##### getSecret({})
+
 Retrieve a secret from AWS Secrets Manager
 
 | Option 	| Type 				| Description	|
 | -			| -					| -				|
-| id		| String			| The secret id.
-| version	| String			| The secret version.
-| stage		| String			| Staging label attached to the version.
-| raw 		| Boolean  			| Retrun the full response from AWS.
+| id		| String			| The secret id. |
+| version	| String			| The secret version. |
+| stage		| String			| Staging label attached to the version. |
+| raw 		| Boolean  			| Return the full response from AWS. |
 
-`getSecretSync({})`
+##### getSecretSync({})
+
 Synchronously retrieve a secret from AWS Secrets Manager. Same options as `getSecret()`
 
-`listSecrets()`
+##### listSecrets()
+
 Retrieve a full list of all secrets.
 
-`deleteSecret(id, force)`
+##### deleteSecret(id, force)
+
 Delete a secret with a recovery window of 30 days unless `force` argument is `true`
 
 | Option 	| Type 				| Description	|
 | -			| -					| -				|
-| id		| String			| The secret id.
-| forece	| Boolean  			| Force delete without recovery.
+| id		| String			| The secret id. |
+| forece	| Boolean  			| Force delete without recovery. |
 
 
 ## Command Line Interface
@@ -213,7 +219,7 @@ Be carful with this one, it will remove all your secrets for an environment. It 
 
 
 ## Testing
-Testing can be a bit finicky since AWS won't delete the secrets created in the test immediately. You may need to wait a minute or two before running the tests multiple times in succession.
+Testing can be a bit finicky since AWS won't delete the secrets created in the test immediately. You may need to wait a minute or two in-between tests if you're running multiple times in succession.
 
 ```bash
 npm install
