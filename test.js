@@ -96,13 +96,6 @@ describe('Secrets', function() {
 		
 	});
 	
-	// after( function (done) {});
-	// 
-	
-	// it.only('test', function(){
-	// 	console.log( require('util').inspect([...FIXTURES], {depth:10, colors:true}) );
-	// })
-	
 	it('should should parse secret list into config object', function () {
 		
 		let args = FIXTURES.map( (item) => {
@@ -151,36 +144,45 @@ describe('Secrets', function() {
 
 	});
 
-	it('should get all secrets individually', function (done) {
+	it('should retrieve a single secret', async function () {
 		
 		
-		let promises = [];
+		let secret,
+			item = secretCache[Math.floor(Math.random() * secretCache.length)];
 		
-		for (let secret of secretCache) {
-			let promise = secrets.getSecret(secret.Name);
-			assert.ok(promise);
-			assert.ok(promise instanceof Promise);
-			promises.push(promise);
+		try {
+			secret = await secrets.getSecret( {id: item.Name, raw:true} );
+		} catch (err) {
+			return Promise.reject(err);
 		}
 		
-		
-		Promise.all(promises)
-			.then( (res) => {
-				assert.ok(res);
-				secretCache = res;
-				assert.ok(secretCache.length === secretCache.length);
-				for (let secret of secretCache) {
-					assert.ok(secret);
-					assert.ok(secret.hasOwnProperty('Name'));
-					assert.ok(secret.hasOwnProperty('ARN'));
-					assert.ok(secret.hasOwnProperty('VersionId'));
-					assert.ok(secret.hasOwnProperty('SecretString'));
-					assert.ok(secret.hasOwnProperty('CreatedDate'));
-				}
-				done();
-			})
-			.catch(done);
+		assert.ok(secret);
+		assert.ok(secret.hasOwnProperty('Name'));
+		assert.ok(secret.hasOwnProperty('ARN'));
+		assert.ok(secret.hasOwnProperty('VersionId'));
+		assert.ok(secret.hasOwnProperty('SecretString'));
+		assert.ok(secret.hasOwnProperty('CreatedDate'));
 
+	});
+
+	it('should synchronously retrieve a single secret', async function () {
+		
+		
+		let secret,
+			item = secretCache[Math.floor(Math.random() * secretCache.length)];
+		
+		try {
+			secret = await secrets.getSecretSync( {id: item.Name, raw: true} );
+		} catch (err) {
+			return Promise.reject(err);
+		}
+		
+		assert.ok(secret);
+		assert.ok(secret.hasOwnProperty('Name'));
+		assert.ok(secret.hasOwnProperty('ARN'));
+		assert.ok(secret.hasOwnProperty('VersionId'));
+		assert.ok(secret.hasOwnProperty('SecretString'));
+		assert.ok(secret.hasOwnProperty('CreatedDate'));
 
 	});
 	
