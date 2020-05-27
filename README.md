@@ -1,6 +1,6 @@
 # Secrets
 
-Synchronously retrieve all your secrets from [AWS Secrets Manager](https://aws.amazon.com/secrets-manager) and create a tidy configuration object for your application or service. AWS Secrets Manager is a secure way to store sensitive information for your application. Instead of putting a configuration file on all your servers, particularly if you have distributed architecture, securely store them in AWS Secrets Manager and use this module to synchronously retrieve them before your application loads.
+Synchronously retrieve all your secrets from [AWS Secrets Manager](https://aws.amazon.com/secrets-manager) and create a tidy configuration object for your application or service. AWS Secrets Manager is a secure way to store sensitive information for your application. Instead of putting a configuration file on all your servers, particularly if you have distributed architecture, securely store them in AWS Secrets Manager and use this module to synchronously retrieve when application loads.
 
 ## Install
 
@@ -10,7 +10,7 @@ npm install --save @jwerre/secrets
 
 ## Example
 
-### Get all secrets
+### Get all secret
 
 ```js
 const config = require('secrets').configSync({
@@ -81,7 +81,7 @@ const {config} = require('secrets');
 
 ## Naming Convention
 
-Your secrets should be named appropriately so they can be parsed into a proper object. They should also have an environment like 'production' or 'development' so the secrets can be loaded into the correct environment. You may use a namespace but that\'s not required. Then [example](#example) above was generated with from secrets with the following names:
+Your secrets should be named appropriately so they can be parsed into a proper object. They should also have an environment like 'production' or 'development' so the secrets can be loaded into the correct environment. You may use a namespace but that\'s not required. The [example](#example) above was generated from secrets with the following names:
 
 - `acme-co/production/name`
 - `acme-co/production/db`
@@ -130,19 +130,11 @@ const config = secrets.configSync();
 ### Methods
 There's a handful of methods that wrap the AWS Secrets Manager SDK.
 
-##### config({})
+##### config()
 
 Asynchronously retrieve configuration data with all secrets from AWS Secrets Manager. Options are the same as
 
-| Option 	| Type 				| Description	|
-| -			| -					| -				|
-| delimiter | String			| delimiter used in secret names (default:`/`). |
-| region	| String			| The AWS region where your secrets are saved. |
-| env 		| String  			| The environment or stage the secret belongs to e.g.: `staging/database/secret`. This is important when generating the configuration so that only that only secrets for specific environments are loaded. If not provided `process.env.NODE_ENV` is used. |
-| namespace | String\|Array 	| An optional namespace to be prepended. e.g.: `my-namespace/production/database/secret`. For multiple namespaces use an array. |
-| all 		| Boolean  			| Ignore the environment and retrieve all secrets. |
-
-##### configSync({})
+##### configSync()
 
 Synchronously retrieve configuration data with all secrets from AWS Secrets Manager. Options are the same as `config()`.
 
@@ -191,17 +183,9 @@ Delete a secret with a recovery window of 30 days unless `force` argument is `tr
 
 
 ## Command Line Interface
-There are a few handy cli tools in the bin directory to help you get started. All these scrips have argument which you can learn more about by using the `--help` flag.
+There are a few handy cli tools in the bin directory to help you get started. All these scripts have arguments which you can learn more about by using the `--help` flag.
 
-### Create Secrets
-
-If you have a config file and you want to deploy it to AWS SecretsManager you can use this script to do it. This script accepts JSON or YAML.
-
-```bash
-./bin/create-config.js --region us-west-1 --env production $HOME/.secrets/production.json
-```
-
-### Retrive Config Object
+### Retrieve Configuration Object
 
 To retrieve all your secrets for from AWS SecretsManger execute the following script.
 
@@ -209,13 +193,26 @@ To retrieve all your secrets for from AWS SecretsManger execute the following sc
 ./bin/get-config.js --region us-west-2 --env staging --pretty
 ```
 
-### Delete Secrets
+### Create Secrets
 
-Be carful with this one, it will remove all your secrets for an environment. It will prompt you before removing.
+If you have a config file and you want to deploy it to AWS SecretsManager you can use this script to do it. This script accepts JSON or YAML.
 
 ```bash
-./bin/delete-secrets.js --region us-east-1 --env development --namespace acme-co --force
+./bin/create-secrets.js --region us-west-1 --env production $HOME/.secrets/production.json
 ```
+
+### Delete Secrets
+
+Be careful with this one, it will remove all your secrets for an environment. It will, however, prompt you before removing.
+
+```bash
+# create a backup first
+./bin/get-config.js --region us-east-1 --env development > secrets-backup.json
+
+./bin/delete-secrets.js --region us-east-1 --env development --namespace acme-co --force
+
+```
+
 
 
 ## Testing
