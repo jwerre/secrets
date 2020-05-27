@@ -43,7 +43,7 @@ Loading *all* your secrets may not always be best options. It's much faster to l
 
 ```js
 const config = require('secrets').secretSync({
-	region: 'us-west-2',
+	region: 'us-east-2',
 	id: '/my-co/apis/',
 });
 ```
@@ -74,7 +74,7 @@ const {config} = require('secrets');
 | Option 	| Type 				| Description	|
 | -			| -					| -				|
 | delimiter | String			| delimiter used in secret names (default:`/`). |
-| region	| String			| The AWS region where your secrets are saved. |
+| region	| String			| The AWS region where your secrets are saved. (default: us-west-2) |
 | env 		| String  			| The environment or stage the secret belongs to e.g.: `staging/database/secret`. This is important when generating the configuration so that only that only secrets for specific environments are loaded. If not provided `process.env.NODE_ENV` is used. |
 | namespace | String\|Array 	| An optional namespace to be prepended. e.g.: `my-namespace/production/database/secret`. For multiple namespaces use an array. |
 | all 		| Boolean  			| Ignore the environment and retrieve all secrets. |
@@ -150,7 +150,7 @@ create a new secret in AWS Secrets Manager. This method will automatically appen
 | secretsBinary	| secretsBinary		| Secret secrets as binary. |
 | token			| String			| Client request token. |
 | kms 			| Boolean  			| KMS key. |
-| tags 			| [Object] 			| A list of secret tags. |
+| tags 			| \[Object\] 			| A list of secret tags. |
 
 
 ##### getSecret({})
@@ -190,7 +190,7 @@ There are a few handy cli tools in the bin directory to help you get started. Al
 To retrieve all your secrets for from AWS SecretsManger execute the following script.
 
 ```bash
-./bin/get-config.js --region us-west-2 --env staging --pretty
+./bin/get-config.js --region us-east-2 --env staging --pretty
 ```
 
 ### Create Secrets
@@ -198,7 +198,7 @@ To retrieve all your secrets for from AWS SecretsManger execute the following sc
 If you have a config file and you want to deploy it to AWS SecretsManager you can use this script to do it. This script accepts JSON or YAML.
 
 ```bash
-./bin/create-secrets.js --region us-west-1 --env production $HOME/.secrets/production.json
+./bin/create-secrets.js --region us-east-2 --env production $HOME/.secrets/production.json
 ```
 
 ### Delete Secrets
@@ -207,9 +207,9 @@ Be careful with this one, it will remove all your secrets for an environment. It
 
 ```bash
 # create a backup first
-./bin/get-config.js --region us-east-1 --env development > secrets-backup.json
+./bin/get-config.js --region us-east-2 --env development > secrets-backup.json
 
-./bin/delete-secrets.js --region us-east-1 --env development --namespace acme-co --force
+./bin/delete-secrets.js --region us-east-2 --env development --namespace acme-co --force
 
 ```
 
