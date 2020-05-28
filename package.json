@@ -1,6 +1,6 @@
 {
   "name": "@jwerre/secrets",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Synchronously retrieve all secretes from AWS Secrets Manager and create a tidy JSON object.",
   "main": "index.js",
   "homepage": "https://github.com/jwerre/secrets/blob/master/README.md",
