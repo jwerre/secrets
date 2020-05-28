@@ -104,9 +104,6 @@ You'll need to give you application or service permission to to access your secr
 			"Action": [
 				"secretsmanager:ListSecrets",
 				"secretsmanager:GetSecretValue",
-				"kms:DescribeKey",
-				"kms:ListAliases",
-				"kms:ListKeys"
 			],
 			"Effect": "Allow",
 			"Resource": "*"
