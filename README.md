@@ -1,6 +1,6 @@
 # Secrets
 
-Synchronously retrieve all your secrets from [AWS Secrets Manager](https://aws.amazon.com/secrets-manager) and create a tidy configuration object for your application or service. AWS Secrets Manager is a secure way to store sensitive information for your application. Instead of putting a configuration file on all your servers, particularly if you have distributed architecture, securely store them in AWS Secrets Manager and use this module to synchronously retrieve when application loads.
+Synchronously retrieve all your secrets from [AWS Secrets Manager](https://aws.amazon.com/secrets-manager) and create a tidy configuration object for your application or service. AWS Secrets Manager is a secure way to store sensitive information for your application. Instead of putting a configuration file on all your servers, particularly if you have distributed architecture, securely store them in AWS Secrets Manager and use this module to synchronously retrieve then before your application loads.
 
 ## Install
 
@@ -190,7 +190,7 @@ There are a few handy cli tools in the bin directory to help you get started. Al
 To retrieve all your secrets for from AWS SecretsManger execute the following script.
 
 ```bash
-./bin/get-config.js --region us-east-2 --env staging --pretty
+get-config.js --region us-east-2 --env staging --pretty
 ```
 
 ### Create Secrets
@@ -198,7 +198,7 @@ To retrieve all your secrets for from AWS SecretsManger execute the following sc
 If you have a config file and you want to deploy it to AWS SecretsManager you can use this script to do it. This script accepts JSON or YAML.
 
 ```bash
-./bin/create-secrets.js --region us-east-2 --env production $HOME/.secrets/production.json
+create-secrets.js --region us-east-2 --env production $HOME/.secrets/production.json
 ```
 
 ### Delete Secrets
@@ -207,9 +207,9 @@ Be careful with this one, it will remove all your secrets for an environment. It
 
 ```bash
 # create a backup first
-./bin/get-config.js --region us-east-2 --env development > secrets-backup.json
+get-config.js --region us-east-2 --env development > secrets-backup.json
 
-./bin/delete-secrets.js --region us-east-2 --env development --namespace acme-co --force
+delete-secrets.js --region us-east-2 --env development --namespace acme-co --force
 
 ```
 

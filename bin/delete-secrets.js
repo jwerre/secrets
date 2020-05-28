@@ -8,13 +8,14 @@ const AWS = require('aws-sdk');
 const REGION = 'us-west-2';
 const ENV = 'development';
 
-const secretsmanager = new AWS.SecretsManager({region:REGION});
 const dry = argv.d || argv.dry;
 const force = argv.f || argv.force;
+const quiet = argv.q || argv.quiet;
 const verbose = argv.v || argv.verbose;
 const env = argv.e || argv.env || ENV;
 const namespace = argv.n || argv.namespace;
-const region = argv.r || argv.region;
+const region = argv.r || argv.region || REGION;
+const secretsmanager = new AWS.SecretsManager({region:region});
 
 
 function showHelp () {
@@ -30,6 +31,7 @@ Options:
 -e, --env		Which environment to use (defaut:${ENV}).
 -f, --force		Force delete without recovery
 -d, --dry		Dry run.
+-q, --quiet		Disable confirmation prompt.
 -n, --namespace		Namespace of all parameters (optional).
 -r, --region		AWS region where secrets are stored.
 `);
@@ -123,11 +125,6 @@ function deleteSecrets (list) {
 
 ( async () => {
 
-
-	if (region) {
-		AWS.config.update({region: region});
-	}
-	
 	let list, prompt;
 		
 	try {
@@ -144,22 +141,26 @@ function deleteSecrets (list) {
 		console.log('Dry Run:');
 		return Promise.resolve(list);
 	}
-
-	try {
-		prompt = await inquirer.prompt([
-			{
-				type: 'confirm',
-				name: 'confirm',
-				default: false,
-				message: `This will remove ${list.length} ${env} secrets from AWS Secret Manager. Are you sure?`,
-			},
-		]);
-	} catch (err) {
-		return Promise.reject(err);
-	}
 	
-	if (!prompt.confirm) {
-		return Promise.reject('Aborting... Nothing was deleted your secrets are safe.');
+	if (!quiet) {
+		
+		try {
+			prompt = await inquirer.prompt([
+				{
+					type: 'confirm',
+					name: 'confirm',
+					default: false,
+					message: `This will remove ${list.length} ${env} secrets from AWS Secret Manager. Are you sure?`,
+				},
+			]);
+		} catch (err) {
+			return Promise.reject(err);
+		}
+		
+		if (!prompt.confirm) {
+			return Promise.reject('Aborting... Nothing was deleted your secrets are safe.');
+		}
+
 	}
 	
 	return deleteSecrets(list);

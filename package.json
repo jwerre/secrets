@@ -20,7 +20,9 @@
     "app config",
     "blocking",
     "synchronous",
-    "cli"
+    "cli",
+    "EC2",
+    "Lambda"
   ],
   "author": "Jonah Werre <jonahwerre@gmail.com>",
   "engine": "12",
@@ -33,5 +35,10 @@
     "minimist": "^1.2.5",
     "mocha": "^7.1.2",
     "yaml": "^1.10.0"
+  },
+  "bin": {
+    "create-secrets": "./bin/create-secrets.js",
+    "delete-secrets": "./bin/delete-secrets.js",
+    "get-config": "./bin/get-config.js"
   }
 }
