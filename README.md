@@ -10,7 +10,7 @@ npm install --save @jwerre/secrets
 
 ## Example
 
-### Get all secret
+### Get all secrets
 
 ```js
 const config = require('secrets').configSync({
@@ -37,7 +37,7 @@ const config = require('secrets').configSync({
 }
 ```
 
-### Get a single secrets
+### Get a single secret
 
 Loading *all* your secrets may not always be the best option. It's much faster to load a single secret like this:
 
