@@ -70,7 +70,7 @@ const RESULT = {
 		secret: {
 			'1': 5,
 			'2': [ 'apple', 'peach', 'banana' ],
-			'auth': {
+			auth: {
 				username: 'joe@example.com',
 				password: 'p3@ches'
 			},
@@ -89,7 +89,7 @@ describe('Secrets', function() {
 		
 		secrets = new Secrets({
 			env:'unit-tesing',
-			region: 'us-west-1',
+			region: 'us-west-2',
 			namespace: '__secrets__',
 		});
 		
@@ -157,10 +157,9 @@ describe('Secrets', function() {
 		Promise.all(promises)
 			.then( (res) => {
 				assert.ok(res);
-				assert.ok(res.length === FIXTURES.length);
+				assert.ok(res.length === secretCache.length);
 				for (let secret of res) {
 					
-					console.log( require('util').inspect(secret, {depth:10, colors:true}) );
 					assert.ok(secret);
 					assert.ok(secret.hasOwnProperty('Name'));
 					assert.ok(secret.hasOwnProperty('ARN'));
