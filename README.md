@@ -1,6 +1,6 @@
 # Secrets
 
-Synchronously retrieve all your secrets from [AWS Secrets Manager](https://aws.amazon.com/secrets-manager) and create a tidy configuration object for your application or service. AWS Secrets Manager is a secure way to store sensitive information for your application. Instead of putting a configuration file on all your servers, particularly if you have distributed architecture, securely store them in AWS Secrets Manager and use this module to synchronously retrieve then before your application loads.
+Synchronously retrieve all your secrets from [AWS Secrets Manager](https://aws.amazon.com/secrets-manager) and create a tidy configuration object for your application or service. AWS Secrets Manager is a secure way to store sensitive information for your application. Instead of putting a configuration file on all your servers, particularly if you have distributed architecture, securely store them in AWS Secrets Manager and use this module to synchronously retrieve them before your application loads.
 
 ## Install
 
@@ -10,7 +10,7 @@ npm install --save @jwerre/secrets
 
 ## Example
 
-### Get all secret
+### Get all secrets
 
 ```js
 const config = require('secrets').configSync({
@@ -37,9 +37,9 @@ const config = require('secrets').configSync({
 }
 ```
 
-### Get a single secrets
+### Get a single secret
 
-Loading *all* your secrets may not always be best options. It's much faster to load a single secret like this:
+Loading *all* your secrets may not always be the best option. It's much faster to load a single secret like this:
 
 ```js
 const config = require('secrets').secretSync({
@@ -50,7 +50,7 @@ const config = require('secrets').secretSync({
 
 ### Asynchronously get all secrets
 
-In most cases you'll want to get your configuration object synchronously since your app probably won't run without it. But, if you prefer, you can also get your secrets asynchronously.
+In most cases, you'll want to get your configuration object synchronously since your app probably won't run without it. But, if you prefer, you can also get your secrets asynchronously.
 
 ```js
 const {config} = require('secrets');
@@ -75,7 +75,7 @@ const {config} = require('secrets');
 | -			| -					| -				|
 | delimiter | String			| delimiter used in secret names (default:`/`). |
 | region	| String			| The AWS region where your secrets are saved. (default: us-west-2) |
-| env 		| String  			| The environment or stage the secret belongs to e.g.: `staging/database/secret`. This is important when generating the configuration so that only that only secrets for specific environments are loaded. If not provided `process.env.NODE_ENV` is used. |
+| env 		| String  			| The environment or stage the secret belongs to e.g.: `staging/database/secret`. This is important when generating the configuration so that only secrets for specific environments are loaded. If not provided `process.env.NODE_ENV` is used. |
 | namespace | String\|Array 	| An optional namespace to be prepended. e.g.: `my-namespace/production/database/secret`. For multiple namespaces use an array. |
 | all 		| Boolean  			| Ignore the environment and retrieve all secrets. |
 
@@ -90,11 +90,11 @@ Your secrets should be named appropriately so they can be parsed into a proper o
 
 ### Delimiters
 
-Your secret names should have a delimiter separating the namespace, environment and the overall hierarchical structure. The default delimiter is a forward slash (`/`) but you can use anything you want. If you're not using the default delimiter be sure and use the `delimiter` argument.
+Your secret names should have a delimiter separating the namespace, environment and the overall hierarchical structure. The default delimiter is a forward slash (`/`) but you can use anything you want. If you're not using the default delimiter, be sure and use the `delimiter` argument.
 
 ## Permissions
 
-You'll need to give you application or service permission to to access your secrets. Start off by creating the following [AIM Policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html). 
+You'll need to give your application or service permission to to access your secrets. Start off by creating the following [AIM Policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html). 
 
 ```json
 {
@@ -112,7 +112,7 @@ You'll need to give you application or service permission to to access your secr
 }
 ```
 
-If you plan on using any of the higher lever methods or any of the cli tool in the `bin` directory you'll need [additional permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awssecretsmanager.html). 
+If you plan on using any of the higher level methods or any of the CLI tools in the `bin` directory, you'll need [additional permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awssecretsmanager.html). 
 
 ## API
 
@@ -129,15 +129,15 @@ There's a handful of methods that wrap the AWS Secrets Manager SDK.
 
 ##### config()
 
-Asynchronously retrieve configuration data with all secrets from AWS Secrets Manager. Options are the same as
+Asynchronously retrieve configuration data with all secrets from AWS Secrets Manager.
 
 ##### configSync()
 
-Synchronously retrieve configuration data with all secrets from AWS Secrets Manager. Options are the same as `config()`.
+Synchronously retrieve configuration data with all secrets from AWS Secrets Manager.
 
 ##### createSecret({})
 
-create a new secret in AWS Secrets Manager. This method will automatically append the namespace and env it they are provided.
+Create a new secret in AWS Secrets Manager. This method will automatically append the `namespace` and `env` if they are provided.
 
 | Option 		| Type 				| Description	|
 | -				| -					| -				|
@@ -176,15 +176,15 @@ Delete a secret with a recovery window of 30 days unless `force` argument is `tr
 | Option 	| Type 				| Description	|
 | -			| -					| -				|
 | id		| String			| The secret id. |
-| forece	| Boolean  			| Force delete without recovery. |
+| force	| Boolean  			| Force delete without recovery. |
 
 
 ## Command Line Interface
-There are a few handy cli tools in the bin directory to help you get started. All these scripts have arguments which you can learn more about by using the `--help` flag.
+There are a few handy CLI tools in the bin directory to help you get started. All these scripts have arguments which you can learn more about by using the `--help` flag.
 
 ### Retrieve Configuration Object
 
-To retrieve all your secrets for from AWS SecretsManger execute the following script.
+To retrieve all your secrets from AWS SecretsManger, execute the following script.
 
 ```bash
 get-config.js --region us-east-2 --env staging --pretty
@@ -192,7 +192,7 @@ get-config.js --region us-east-2 --env staging --pretty
 
 ### Create Secrets
 
-If you have a config file and you want to deploy it to AWS SecretsManager you can use this script to do it. This script accepts JSON or YAML.
+If you have a config file and you want to deploy it to AWS SecretsManager, you can use this script to do it. This script accepts JSON or YAML.
 
 ```bash
 create-secrets.js --region us-east-2 --env production $HOME/.secrets/production.json
@@ -200,7 +200,7 @@ create-secrets.js --region us-east-2 --env production $HOME/.secrets/production.
 
 ### Delete Secrets
 
-Be careful with this one, it will remove all your secrets for an environment. It will, however, prompt you before removing.
+Be careful with this one as it will remove all your secrets. It will, however, prompt you before removing.
 
 ```bash
 # create a backup first
