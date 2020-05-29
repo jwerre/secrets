@@ -144,24 +144,35 @@ describe('Secrets', function() {
 
 	});
 
-	it('should retrieve a single secret', async function () {
+	it('should retrieve all secrets individually', function (done) {
 		
 		
-		let secret,
-			item = secretCache[Math.floor(Math.random() * secretCache.length)];
+		const promises = secretCache.map( (item) => {
+			return secrets.getSecret({
+				id: item.Name,
+				raw:true
+			});
+		});
 		
-		try {
-			secret = await secrets.getSecret( {id: item.Name, raw:true} );
-		} catch (err) {
-			return Promise.reject(err);
-		}
-		
-		assert.ok(secret);
-		assert.ok(secret.hasOwnProperty('Name'));
-		assert.ok(secret.hasOwnProperty('ARN'));
-		assert.ok(secret.hasOwnProperty('VersionId'));
-		assert.ok(secret.hasOwnProperty('SecretString'));
-		assert.ok(secret.hasOwnProperty('CreatedDate'));
+		Promise.all(promises)
+			.then( (res) => {
+				assert.ok(res);
+				assert.ok(res.length === FIXTURES.length);
+				for (let secret of res) {
+					
+					console.log( require('util').inspect(secret, {depth:10, colors:true}) );
+					assert.ok(secret);
+					assert.ok(secret.hasOwnProperty('Name'));
+					assert.ok(secret.hasOwnProperty('ARN'));
+					assert.ok(secret.hasOwnProperty('VersionId'));
+					assert.ok(secret.hasOwnProperty('SecretString'));
+					assert.ok(secret.hasOwnProperty('CreatedDate'));
+
+				}
+				done();
+			})
+			.catch(done);
+
 
 	});
 

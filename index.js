@@ -33,13 +33,13 @@ module.exports.secretSync = function (options) {
 	
 	delete options.region;
 	
-	let config;
+	let secret;
 	
 	try {
-		config = secrets.getSecretSync(options);
+		secret = secrets.getSecretSync(options);
 	} catch (err) {
 		throw err;
 	}
 	
-	return config;
+	return secret;
 };

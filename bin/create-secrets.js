@@ -137,10 +137,19 @@ function createSecrets (list) {
 		let params = {
 			Name: item.key,
 			KmsKeyId: kms,
-			SecretString: JSON.stringify(item.value),
+			SecretString: item.value,
 		};
 		
-		// console.log(params);
+		if (Object.prototype.toString.call(params.SecretString) !== '[object String]') {
+
+			try {
+				params.SecretString = JSON.stringify(params.SecretString);
+			} catch (err) {
+				// ignore stringify err
+			}
+			
+		}
+
 		let promise = secretsmanager.createSecret(params).promise();
 		promises.push(promise);
 
