@@ -31,8 +31,8 @@
   "dependencies": {
     "aws-sdk": "^2.677.0",
     "inquirer": "^7.1.0",
-    "minimist": "^1.2.5",
-    "yaml": "^1.10.0"
+    "js-yaml": "^3.14.0",
+    "minimist": "^1.2.5"
   },
   "devDependencies": {
     "mocha": "^7.1.2"
