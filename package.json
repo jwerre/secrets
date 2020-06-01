@@ -6,7 +6,8 @@
   "homepage": "https://github.com/jwerre/secrets/blob/master/README.md",
   "repository": "https://github.com/jwerre/secrets",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test",
+	"patch": "npm version patch && git push origin master && git push --tags && npm publish"
   },
   "keywords": [
     "secrets manager",
@@ -28,13 +29,13 @@
   "engine": "12",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.677.0"
+    "aws-sdk": "^2.677.0",
+	"inquirer": "^7.1.0",
+	"minimist": "^1.2.5",
+	"yaml": "^1.10.0"
   },
   "devDependencies": {
-    "inquirer": "^7.1.0",
-    "minimist": "^1.2.5",
-    "mocha": "^7.1.2",
-    "yaml": "^1.10.0"
+    "mocha": "^7.1.2"
   },
   "bin": {
     "create-secrets": "./bin/create-secrets.js",

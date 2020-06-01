@@ -180,14 +180,20 @@ Delete a secret with a recovery window of 30 days unless `force` argument is `tr
 
 
 ## Command Line Interface
-There are a few handy CLI tools in the bin directory to help you get started. All these scripts have arguments which you can learn more about by using the `--help` flag.
+There are a few handy CLI tools in the bin directory to help you get started. It helps to install this globally:
+
+```bash
+npm install --global @jwerre/secrets
+```
+
+All of the folloing commands have arguments which you can learn more about by using the `--help` flag.
 
 ### Retrieve Configuration Object
 
 To retrieve all your secrets from AWS SecretsManger, execute the following script.
 
 ```bash
-get-config.js --region us-east-2 --env staging --pretty
+get-config --region us-east-2 --env staging --pretty
 ```
 
 ### Create Secrets
@@ -195,7 +201,7 @@ get-config.js --region us-east-2 --env staging --pretty
 If you have a config file and you want to deploy it to AWS SecretsManager, you can use this script to do it. This script accepts JSON or YAML.
 
 ```bash
-create-secrets.js --region us-east-2 --env production $HOME/.secrets/production.json
+create-secrets --region us-east-2 --env production $HOME/.secrets/production.json
 ```
 
 ### Delete Secrets
@@ -204,12 +210,11 @@ Be careful with this one as it will remove all your secrets. It will, however, p
 
 ```bash
 # create a backup first
-get-config.js --region us-east-2 --env development > secrets-backup.json
+get-config --region us-east-2 --env development > config_development_backup.json
 
-delete-secrets.js --region us-east-2 --env development --namespace acme-co --force
+delete-secrets --region us-east-2 --env development --namespace acme-co --force
 
 ```
-
 
 
 ## Testing
