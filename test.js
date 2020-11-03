@@ -89,7 +89,7 @@ describe('Secrets', function() {
 		
 		secrets = new Secrets({
 			env:'unit-tesing',
-			region: 'us-west-2',
+			region: 'us-east-1',
 			namespace: '__secrets__',
 		});
 		
@@ -258,8 +258,42 @@ describe('Secrets', function() {
 		assert.deepStrictEqual( config, RESULT);
 		
 	});
+
+	it.skip('should produce a rate limit error, wait and try again', async function () {
+		
+		const iterations = 500;
+		this.timeout(1000*iterations);
+		
+		let result, promises = [];
+		
+		for (let index = 0; index < iterations; index++) {
+			// const name = `${secrets.namespace}/${secrets.env}/${FIXTURES[0].name}`;
+			promises.push( secrets.listSecrets() );
+		}
+
+		try {
+			result = await Promise.allSettled(promises);
+		} catch (err) {
+			return Promise.reject(err);
+		}
+
+		result.forEach( (res, i) => {
+			assert.ok(res.hasOwnProperty('value'));
+			assert.ok(res.hasOwnProperty('status'));
+			assert.ok( res.status === 'fulfilled' );
+			assert.ok( Object.prototype.toString.call(res.value) === '[object Array]' );
+			// if (res.status !== 'fulfilled') {
+			// 	console.log( require('util').inspect(res, {depth:10, colors:true}) );
+			// }
+		});
+
+		assert.ok(result);
+		
+	});
 	
 	it('should delete all secret', function (done) {
+
+		this.timeout(0);
 
 		let promises = [];
 

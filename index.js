@@ -14,13 +14,7 @@ module.exports.configSync = function (options={}) {
 
 	const secrets = new Secrets(options);
 	
-	let config;
-	
-	try {
-		config = secrets.configSync();
-	} catch (err) {
-		throw err;
-	}
+	let config  = secrets.configSync();
 	
 	return config;
 };
@@ -33,13 +27,7 @@ module.exports.secretSync = function (options) {
 	
 	delete options.region;
 	
-	let secret;
-	
-	try {
-		secret = secrets.getSecretSync(options);
-	} catch (err) {
-		throw err;
-	}
+	let secret = secrets.getSecretSync(options);
 	
 	return secret;
 };
