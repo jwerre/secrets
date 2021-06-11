@@ -175,12 +175,68 @@ describe('Secrets', function() {
 
 	});
 
-	it('should synchronously retrieve a single secret', async function () {
+	it('should synchronously retrieve a single secret string', async function () {
+		
+		let secret,
+			id = '__secrets__/unit-tesing/secret2';
+
+		try {
+			secret = await secrets.getSecretSync( {id:id} );
+		} catch (err) {
+			return Promise.reject(err);
+		}
+
+		assert.ok(secret);
+		assert.ok(Object.prototype.toString.call(secret) === '[object String]');
+		assert.strictEqual(secret, RESULT.secret2);
+
+	});
+
+	it('should synchronously retrieve a single secret and return a secret object', async function () {
+		
+		
+		let secret,
+			id = '__secrets__/unit-tesing/secret1';
+
+		try {
+			secret = await secrets.getSecretSync( {id:id} );
+		} catch (err) {
+			return Promise.reject(err);
+		}
+
+		assert.ok(secret);
+		assert.ok(Object.prototype.toString.call(secret) === '[object Object]');
+		assert.ok(secret.hasOwnProperty('key'));
+		assert.ok(secret.hasOwnProperty('secret'));
+		assert.deepStrictEqual( secret, RESULT.secret1);
+
+	});
+
+	it('should synchronously retrieve a single secret mixed array', async function () {
+		
+		let secret,
+			id = '__secrets__/unit-tesing/secret6';
+
+		try {
+			secret = await secrets.getSecretSync( {id:id} );
+		} catch (err) {
+			return Promise.reject(err);
+		}
+
+		assert.ok(secret);
+		assert.ok(Object.prototype.toString.call(secret) === '[object Array]');
+		assert.deepStrictEqual( secret, RESULT.secret6);
+
+	});
+
+
+	it('should synchronously retrieve a single secret and return the raw AWS response', async function () {
 		
 		
 		let secret,
 			item = secretCache[Math.floor(Math.random() * secretCache.length)];
 		
+
 		try {
 			secret = await secrets.getSecretSync( {id: item.Name, raw: true} );
 		} catch (err) {
@@ -195,6 +251,7 @@ describe('Secrets', function() {
 		assert.ok(secret.hasOwnProperty('CreatedDate'));
 
 	});
+
 	
 	it('retrieve a list of all secrets', async function() {
 		
