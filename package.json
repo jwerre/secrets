@@ -1,6 +1,6 @@
 {
     "name": "@jwerre/secrets",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Synchronously retrieve all secretes from AWS Secrets Manager and create a tidy JSON object.",
     "main": "index.js",
     "homepage": "https://github.com/jwerre/secrets/blob/master/README.md",
@@ -30,12 +30,11 @@
     "license": "MIT",
     "dependencies": {
         "aws-sdk": "^2.677.0",
-        "inquirer": "^7.3.3",
         "js-yaml": "^3.14.0",
         "minimist": "^1.2.5"
     },
     "devDependencies": {
-        "mocha": "^8.3.2"
+        "mocha": "^9.1.2"
     },
     "bin": {
         "create-secrets": "./bin/create-secrets.js",

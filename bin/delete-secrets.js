@@ -2,8 +2,12 @@
 
 const argv = require('minimist')(process.argv.slice(2));
 const {inspect} = require('util');
-const inquirer = require('inquirer');
 const AWS = require('aws-sdk');
+const readline = require('readline');
+const readln = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout
+});
 
 const REGION = 'us-west-2';
 const ENV = 'development';
@@ -20,8 +24,10 @@ const secretsmanager = new AWS.SecretsManager({region:region});
 
 function showHelp () {
 	console.log(`
-Delete all secrets from AWS Secrets Manager within a region, environment and namespace. 
-!! This is desctructive, be carfull using it !!
+Delete all secrets from AWS Secrets Manager within a region, environment and namespace.
+By default, you will be prompted for confirmation deleting.
+
+!! This is desctructive, be careful using it !!
 
 Usage: delete-config --namespace my-namespace --env staging
 
@@ -42,6 +48,22 @@ Options:
 
 if (argv.h || argv.help) {
 	showHelp();
+}
+
+
+function prompt (question) {
+
+	return new Promise( function (resolve, reject) {
+		readln.question( question, function (answer) {
+			resolve(
+				answer &&
+				answer.length && 
+				answer.trim().toLowerCase() === 'yes' ||
+				answer.trim().toLowerCase() === 'y'
+			);
+		});
+	});
+
 }
 
 
@@ -125,7 +147,7 @@ function deleteSecrets (list) {
 
 ( async () => {
 
-	let list, prompt;
+	let list, abort;
 		
 	try {
 		list = await listSecrets();
@@ -136,32 +158,29 @@ function deleteSecrets (list) {
 	if (!list || !list.length) {
 		return Promise.reject('Nothing to delete');
 	}
-	
-	if (dry) {
-		console.log('Dry Run:');
-		return Promise.resolve(list);
-	}
-	
-	if (!quiet) {
 		
+	if (!quiet) {
+		let promptMsg = `This will remove ${list.length} ${env} secrets from AWS 
+Secret Manager. Are you sure you want to continue? [y/N] `;
+		if (dry) {
+			promptMsg = `!!DRY RUN!! ${promptMsg}`;
+		}
 		try {
-			prompt = await inquirer.prompt([
-				{
-					type: 'confirm',
-					name: 'confirm',
-					default: false,
-					message: `This will remove ${list.length} ${env} secrets from AWS Secret Manager. Are you sure?`,
-				},
-			]);
+			abort = await prompt(promptMsg);
 		} catch (err) {
 			return Promise.reject(err);
 		}
 		
-		if (!prompt.confirm) {
+		if (!abort) {
 			return Promise.reject('Aborting... Nothing was deleted your secrets are safe.');
 		}
 
 	}
+
+	if (dry) {
+		return Promise.resolve(list);
+	}
+
 	
 	return deleteSecrets(list);
 
@@ -169,6 +188,9 @@ function deleteSecrets (list) {
 	.then( (res) => {
 		if (verbose && res) {
 			console.log( inspect(res, {depth:10, colors:true}) );
+			if (dry) {
+				console.log('DRY RUN: no secrets were deleted');
+			}
 		}
 	})
 	.catch( console.error )
