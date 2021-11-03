@@ -12,7 +12,7 @@ const REGION = 'us-west-2';
 const DELIMITER = '/';
 
 const stdin = argv._[0] || argv.i || argv.in;
-const region = argv.r || argv.region || REGION;
+const region = argv.r || argv.region || process.env.AWS_REGION || REGION;
 const kms = argv.k || argv.kms;
 const env = argv.env || argv.e || ENV;
 const namespace = argv.namespace || argv.n;
@@ -28,7 +28,7 @@ Usage: create-config --verbose --kms 123456789-123456789-1234567890 /path/to/my/
 Options:
 -h, --help		Show help.
 -v, --verbose		Verbose output.
--r, --region		The AWS SecretsManager region (default: ${REGION}).
+-r, --region		The AWS Secrets Manager region (default: AWS_PROFILE environment variable or ${REGION} if unset).
 -e, --env		Which environment to use in the secret name (default: ${ENV}).
 -k, --kms		KMS key id to use for encryption.
 -n, --namespace		Namespace of all parameters.

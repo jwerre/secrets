@@ -18,7 +18,7 @@ const quiet = argv.q || argv.quiet;
 const verbose = argv.v || argv.verbose;
 const env = argv.e || argv.env || ENV;
 const namespace = argv.n || argv.namespace;
-const region = argv.r || argv.region || REGION;
+const region = argv.r || argv.region || process.env.AWS_REGION || REGION;
 const secretsmanager = new AWS.SecretsManager({region:region});
 
 
@@ -39,7 +39,7 @@ Options:
 -d, --dry		Dry run.
 -q, --quiet		Disable confirmation prompt.
 -n, --namespace		Namespace of all parameters (optional).
--r, --region		AWS region where secrets are stored.
+-r, --region		AWS region where secrets are stored (default: AWS_PROFILE environment variable or ${REGION} if unset)
 `);
 
 	return process.exit();

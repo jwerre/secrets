@@ -8,7 +8,7 @@ const ENV = 'development';
 const REGION = 'us-west-2';
 
 const env = argv.env || argv.e || ENV;
-const region = argv.r || argv.region || REGION;
+const region = argv.r || argv.region || process.env.AWS_REGION || REGION;
 const namespace = argv.namespace || argv.n;
 const pretty = argv.pretty || argv.p;
 const delimiter = argv.delimiter || argv.d;
@@ -23,7 +23,7 @@ Usage: get-config --namespace mynamespace --env production --pretty
 
 Options:
 -h, --help		Show help.
--r, --region		The AWS SecretsManager region (default: ${REGION}).
+-r, --region		The AWS Secrets Manager region (default: AWS_PROFILE environment variable or ${REGION} if unset).
 -e, --env		Which environment to use in the secret name (default: ${ENV}).
 -d, --delimiter		Secret name delimiter (default: /).
 -p, --pretty		Pretty output

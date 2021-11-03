@@ -74,7 +74,7 @@ const {config} = require('secrets');
 | Option 	| Type 				| Description	|
 | -			| -					| -				|
 | delimiter | String			| delimiter used in secret names (default:`/`). |
-| region	| String			| The AWS region where your secrets are saved. (default: us-west-2) |
+| region	| String			| The AWS region where your secrets are saved. (default: AWS_PROFILE environment variable or us-west-2 if unset) |
 | env 		| String  			| The environment or stage the secret belongs to e.g.: `staging/database/secret`. This is important when generating the configuration so that only secrets for specific environments are loaded. If not provided `process.env.NODE_ENV` is used. |
 | namespace | String\|Array 	| An optional namespace to be prepended. e.g.: `my-namespace/production/database/secret`. For multiple namespaces use an array. |
 | all 		| Boolean  			| Ignore the environment and retrieve all secrets. |
