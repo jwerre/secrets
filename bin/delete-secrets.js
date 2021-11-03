@@ -38,7 +38,7 @@ Options:
 -f, --force		Force delete without recovery
 -d, --dry		Dry run.
 -q, --quiet		Disable confirmation prompt.
--n, --namespace		Namespace of all parameters (optional).
+-n, --namespace		Namespace of all parameters
 -r, --region		AWS region where secrets are stored (default: AWS_PROFILE environment variable or ${REGION} if unset)
 `);
 
