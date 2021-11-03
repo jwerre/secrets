@@ -6,30 +6,31 @@ const {inspect} = require('util');
 
 const ENV = 'development';
 const REGION = 'us-west-2';
+const DELIMITER = '/';
 
 const env = argv.env || argv.e || ENV;
-const region = argv.r || argv.region || REGION;
+const region = argv.r || argv.region || process.env.AWS_REGION || REGION;
 const namespace = argv.namespace || argv.n;
 const pretty = argv.pretty || argv.p;
-const delimiter = argv.delimiter || argv.d;
+const delimiter = argv.delimiter || argv.d || DELIMITER;
 const all = argv.all || argv.a;
 const time = argv.time || argv.t;
 
 function showHelp () {
 	console.log(`
-Retrive all secrets from AWS Secrets Manager. 
+Retrieve all secrets from AWS Secrets Manager. 
 
 Usage: get-config --namespace mynamespace --env production --pretty
 
 Options:
 -h, --help		Show help.
--r, --region		The AWS SecretsManager region (default: ${REGION}).
+-r, --region		The AWS Secrets Manager region (default: AWS_PROFILE environment variable or ${REGION} if unset).
 -e, --env		Which environment to use in the secret name (default: ${ENV}).
--d, --delimiter		Secret name delimiter (default: /).
+-d, --delimiter		Secret name delimiter (default: ${DELIMITER}).
 -p, --pretty		Pretty output
 -a, --all		Ignore the environment and retrieve all secrets (default: false).
 -n, --namespace		Namespace of all parameters.
--t, --time		Display time it takes to retireve config.
+-t, --time		Display time it takes to retrieve config.
 `);
 
 	return process.exit();

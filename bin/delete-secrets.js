@@ -18,7 +18,7 @@ const quiet = argv.q || argv.quiet;
 const verbose = argv.v || argv.verbose;
 const env = argv.e || argv.env || ENV;
 const namespace = argv.n || argv.namespace;
-const region = argv.r || argv.region || REGION;
+const region = argv.r || argv.region || process.env.AWS_REGION || REGION;
 const secretsmanager = new AWS.SecretsManager({region:region});
 
 
@@ -27,19 +27,19 @@ function showHelp () {
 Delete all secrets from AWS Secrets Manager within a region, environment and namespace.
 By default, you will be prompted for confirmation deleting.
 
-!! This is desctructive, be careful using it !!
+!! This is destructive, be careful using it !!
 
-Usage: delete-config --namespace my-namespace --env staging
+Usage: delete-secrets --namespace my-namespace --env staging
 
 Options:
 -h, --help		Show help.
 -v, --verbose		Verbose output.
--e, --env		Which environment to use (defaut:${ENV}).
+-e, --env		Which environment to use (default: ${ENV}).
 -f, --force		Force delete without recovery
 -d, --dry		Dry run.
 -q, --quiet		Disable confirmation prompt.
--n, --namespace		Namespace of all parameters (optional).
--r, --region		AWS region where secrets are stored.
+-n, --namespace		Namespace of all parameters
+-r, --region		AWS region where secrets are stored (default: AWS_PROFILE environment variable or ${REGION} if unset)
 `);
 
 	return process.exit();
