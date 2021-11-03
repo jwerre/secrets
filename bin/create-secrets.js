@@ -23,7 +23,7 @@ function showHelp () {
 	console.log(`
 Deploy configuration file to AWS Secrets Manager.
 
-Usage: create-config --verbose --kms 123456789-123456789-1234567890 /path/to/my/config.<yaml|json>
+Usage: create-secrets --verbose --kms 123456789-123456789-1234567890 /path/to/my/config.<yaml|json>
 
 Options:
 -h, --help		Show help.

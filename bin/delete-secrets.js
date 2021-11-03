@@ -29,7 +29,7 @@ By default, you will be prompted for confirmation deleting.
 
 !! This is destructive, be careful using it !!
 
-Usage: delete-config --namespace my-namespace --env staging
+Usage: delete-secrets --namespace my-namespace --env staging
 
 Options:
 -h, --help		Show help.
