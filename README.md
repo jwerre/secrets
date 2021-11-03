@@ -94,7 +94,7 @@ Your secret names should have a delimiter separating the namespace, environment 
 
 ## Permissions
 
-You'll need to give your application or service permission to to access your secrets. Start off by creating the following [AIM Policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html). 
+You'll need to give your application or service permission to access your secrets. Start off by creating the following [AIM Policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html). 
 
 ```json
 {
@@ -186,7 +186,7 @@ There are a few handy CLI tools in the bin directory to help you get started. It
 npm install --global @jwerre/secrets
 ```
 
-All of the folloing commands have arguments which you can learn more about by using the `--help` flag.
+All of the following commands have arguments which you can learn more about by using the `--help` flag.
 
 ### Retrieve Configuration Object
 

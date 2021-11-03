@@ -27,14 +27,14 @@ function showHelp () {
 Delete all secrets from AWS Secrets Manager within a region, environment and namespace.
 By default, you will be prompted for confirmation deleting.
 
-!! This is desctructive, be careful using it !!
+!! This is destructive, be careful using it !!
 
 Usage: delete-config --namespace my-namespace --env staging
 
 Options:
 -h, --help		Show help.
 -v, --verbose		Verbose output.
--e, --env		Which environment to use (defaut:${ENV}).
+-e, --env		Which environment to use (default: ${ENV}).
 -f, --force		Force delete without recovery
 -d, --dry		Dry run.
 -q, --quiet		Disable confirmation prompt.

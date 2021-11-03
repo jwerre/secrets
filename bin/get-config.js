@@ -17,7 +17,7 @@ const time = argv.time || argv.t;
 
 function showHelp () {
 	console.log(`
-Retrive all secrets from AWS Secrets Manager. 
+Retrieve all secrets from AWS Secrets Manager. 
 
 Usage: get-config --namespace mynamespace --env production --pretty
 
@@ -29,7 +29,7 @@ Options:
 -p, --pretty		Pretty output
 -a, --all		Ignore the environment and retrieve all secrets (default: false).
 -n, --namespace		Namespace of all parameters.
--t, --time		Display time it takes to retireve config.
+-t, --time		Display time it takes to retrieve config.
 `);
 
 	return process.exit();
