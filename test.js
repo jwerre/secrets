@@ -175,16 +175,12 @@ describe('Secrets', function() {
 
 	});
 
-	it('should synchronously retrieve a single secret string', async function () {
+	it('should synchronously retrieve a single secret string', function () {
 		
 		let secret,
 			id = '__secrets__/unit-tesing/secret2';
 
-		try {
-			secret = await secrets.getSecretSync( {id:id} );
-		} catch (err) {
-			return Promise.reject(err);
-		}
+		secret = secrets.getSecretSync( {id:id} );
 
 		assert.ok(secret);
 		assert.ok(Object.prototype.toString.call(secret) === '[object String]');
@@ -192,17 +188,13 @@ describe('Secrets', function() {
 
 	});
 
-	it('should synchronously retrieve a single secret and return a secret object', async function () {
+	it('should synchronously retrieve a single secret and return a secret object', function () {
 		
 		
 		let secret,
 			id = '__secrets__/unit-tesing/secret1';
 
-		try {
-			secret = await secrets.getSecretSync( {id:id} );
-		} catch (err) {
-			return Promise.reject(err);
-		}
+		secret = secrets.getSecretSync( {id:id} );
 
 		assert.ok(secret);
 		assert.ok(Object.prototype.toString.call(secret) === '[object Object]');
@@ -212,16 +204,12 @@ describe('Secrets', function() {
 
 	});
 
-	it('should synchronously retrieve a single secret mixed array', async function () {
+	it('should synchronously retrieve a single secret mixed array', function () {
 		
 		let secret,
 			id = '__secrets__/unit-tesing/secret6';
 
-		try {
-			secret = await secrets.getSecretSync( {id:id} );
-		} catch (err) {
-			return Promise.reject(err);
-		}
+		secret = secrets.getSecretSync( {id:id} );
 
 		assert.ok(secret);
 		assert.ok(Object.prototype.toString.call(secret) === '[object Array]');
@@ -230,18 +218,14 @@ describe('Secrets', function() {
 	});
 
 
-	it('should synchronously retrieve a single secret and return the raw AWS response', async function () {
+	it('should synchronously retrieve a single secret and return the raw AWS response', function () {
 		
 		
 		let secret,
 			item = secretCache[Math.floor(Math.random() * secretCache.length)];
 		
 
-		try {
-			secret = await secrets.getSecretSync( {id: item.Name, raw: true} );
-		} catch (err) {
-			return Promise.reject(err);
-		}
+		secret = secrets.getSecretSync( {id: item.Name, raw: true} );
 		
 		assert.ok(secret);
 		assert.ok(secret.hasOwnProperty('Name'));
