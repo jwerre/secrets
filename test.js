@@ -175,15 +175,15 @@ describe('Secrets', function() {
 
 	});
 
-	it('should synchronously retrieve a single secret string', async function () {
+	it('should synchronously retrieve a single secret string', function () {
 		
 		let secret,
 			id = '__secrets__/unit-tesing/secret2';
 
 		try {
-			secret = await secrets.getSecretSync( {id:id} );
+			secret = secrets.getSecretSync( {id:id} );
 		} catch (err) {
-			return Promise.reject(err);
+			assert.fail(err.message);
 		}
 
 		assert.ok(secret);
@@ -192,16 +192,16 @@ describe('Secrets', function() {
 
 	});
 
-	it('should synchronously retrieve a single secret and return a secret object', async function () {
+	it('should synchronously retrieve a single secret and return a secret object', function () {
 		
 		
 		let secret,
 			id = '__secrets__/unit-tesing/secret1';
 
 		try {
-			secret = await secrets.getSecretSync( {id:id} );
+			secret = secrets.getSecretSync( {id:id} );
 		} catch (err) {
-			return Promise.reject(err);
+			assert.fail(err.message);
 		}
 
 		assert.ok(secret);
@@ -212,15 +212,15 @@ describe('Secrets', function() {
 
 	});
 
-	it('should synchronously retrieve a single secret mixed array', async function () {
+	it('should synchronously retrieve a single secret mixed array', function () {
 		
 		let secret,
 			id = '__secrets__/unit-tesing/secret6';
 
 		try {
-			secret = await secrets.getSecretSync( {id:id} );
+			secret = secrets.getSecretSync( {id:id} );
 		} catch (err) {
-			return Promise.reject(err);
+			assert.fail(err.message);
 		}
 
 		assert.ok(secret);
@@ -230,7 +230,7 @@ describe('Secrets', function() {
 	});
 
 
-	it('should synchronously retrieve a single secret and return the raw AWS response', async function () {
+	it('should synchronously retrieve a single secret and return the raw AWS response', function () {
 		
 		
 		let secret,
@@ -238,9 +238,9 @@ describe('Secrets', function() {
 		
 
 		try {
-			secret = await secrets.getSecretSync( {id: item.Name, raw: true} );
+			secret = secrets.getSecretSync( {id: item.Name, raw: true} );
 		} catch (err) {
-			return Promise.reject(err);
+			assert.fail(err.message);
 		}
 		
 		assert.ok(secret);
@@ -263,7 +263,7 @@ describe('Secrets', function() {
 		try {
 			list = await secrets.listSecrets();
 		} catch (err) {
-			assert.fail(err);
+			assert.fail(err.message);
 		}
 		
 		assert.ok(list);
@@ -289,7 +289,7 @@ describe('Secrets', function() {
 		try {
 			config = await secrets.config();
 		} catch (err) {
-			assert.fail(err);
+			assert.fail(err.message);
 		}
 		
 		assert.ok(config);
@@ -308,7 +308,7 @@ describe('Secrets', function() {
 		try {
 			config = secrets.configSync();
 		} catch (err) {
-			return Promise.reject(err);
+			assert.fail(err.message);
 		}
 		
 		assert.ok(config);
@@ -331,7 +331,7 @@ describe('Secrets', function() {
 		try {
 			result = await Promise.allSettled(promises);
 		} catch (err) {
-			return Promise.reject(err);
+			assert.fail(err.message);
 		}
 
 		result.forEach( (res, i) => {
