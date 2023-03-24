@@ -34,7 +34,7 @@
         "minimist": "^1.2.6"
     },
     "devDependencies": {
-        "mocha": "^9.2.0"
+        "mocha": "^10.2.0"
     },
     "bin": {
         "create-secrets": "./bin/create-secrets.js",
