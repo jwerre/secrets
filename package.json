@@ -29,7 +29,7 @@
     "engine": "12",
     "license": "MIT",
     "dependencies": {
-        "@aws-sdk/client-secrets-manager": "^3.298.0",
+        "@aws-sdk/client-secrets-manager": "^3.387.0",
         "js-yaml": "^3.14.0",
         "minimist": "^1.2.6"
     },
