@@ -154,12 +154,13 @@ Create a new secret in AWS Secrets Manager. This method will automatically appen
 
 Retrieve a secret from AWS Secrets Manager
 
-| Option 	| Type 				| Description	|
-| -			| -					| -				|
-| id		| String			| The secret id. |
-| version	| String			| The secret version. |
-| stage		| String			| Staging label attached to the version. |
-| raw 		| Boolean  			| Return the full response from AWS. |
+| Option 	| Type 				    | Description	|
+| -			|--------------| -				|
+| id		| String			    | The secret id. |
+| maxBuffer	| Number			    | The max buffer size for the spawned process. (default: 15k)  |
+| version	| String			    | The secret version. |
+| stage		| String			    | Staging label attached to the version. |
+| raw 		| Boolean  			 | Return the full response from AWS. |
 
 ##### getSecretSync({})
 
