@@ -2,7 +2,7 @@
 
 const argv = require('minimist')(process.argv.slice(2));
 const {inspect} = require('util');
-const AWS = require('aws-sdk');
+const { SecretsManager } = require("@aws-sdk/client-secrets-manager");
 const readline = require('readline');
 const readln = readline.createInterface({
 	input: process.stdin,
@@ -19,7 +19,7 @@ const verbose = argv.v || argv.verbose;
 const env = argv.e || argv.env || ENV;
 const namespace = argv.n || argv.namespace;
 const region = argv.r || argv.region || process.env.AWS_REGION || REGION;
-const secretsmanager = new AWS.SecretsManager({region:region});
+const secretsmanager = new SecretsManager({ region:region });
 
 
 function showHelp () {
@@ -81,7 +81,7 @@ async function listSecrets () {
 		}
 		
 		try {
-			res = await secretsmanager.listSecrets(params).promise();
+			res = await secretsmanager.listSecrets(params);
 		} catch (err) {
 			return Promise.reject(err);
 		}
@@ -122,19 +122,17 @@ async function listSecrets () {
 
 function deleteSecrets (list) {
 	
-	let promises = [];
+	const promises = [];
 	
 	for (let item of list) {
 
-		let params = {
-			SecretId: item.ARN,
-		};
+		const params = { SecretId: item.ARN };
 		
 		if (force) {
 			params.ForceDeleteWithoutRecovery = true;
 		}
 		
-		let promise = secretsmanager.deleteSecret(params).promise();
+		const promise = secretsmanager.deleteSecret(params);
 		promises.push(promise);
 
 	}
