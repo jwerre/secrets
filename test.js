@@ -192,6 +192,23 @@ describe('Secrets', function() {
 
 	});
 
+    it('should fail synchronously retrieve a single secret string1 when maxBuffer is small', function () {
+
+        let secret,
+            id = '__secrets__/unit-tesing/secret2';
+
+        let isFailed = false;
+        try {
+            secrets.getSecretSync( {id:id, maxBuffer:2} );
+        } catch (err) {
+            isFailed = true;
+        }
+
+        assert.ok(isFailed);
+
+    });
+
+
 	it('should synchronously retrieve a single secret and return a secret object', function () {
 		
 		
