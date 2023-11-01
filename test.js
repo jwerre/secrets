@@ -106,9 +106,9 @@ describe('Secrets', function () {
 				assert.ok(res.length === FIXTURES.length);
 				for (let item of res) {
 					assert.ok(item);
-					assert.ok(item.hasOwnProperty('Name'));
-					assert.ok(item.hasOwnProperty('ARN'));
-					assert.ok(item.hasOwnProperty('DeletionDate'));
+					assert.ok('Name' in item);
+					assert.ok('ARN' in item);
+					assert.ok('DeletionDate' in item);
 				}
 				done();
 			})
@@ -147,9 +147,9 @@ describe('Secrets', function () {
 				assert.ok(secretCache.length === promises.length);
 				for (let secret of secretCache) {
 					assert.ok(secret);
-					assert.ok(secret.hasOwnProperty('Name'));
-					assert.ok(secret.hasOwnProperty('ARN'));
-					assert.ok(secret.hasOwnProperty('VersionId'));
+					assert.ok('Name' in secret);
+					assert.ok('ARN' in secret);
+					assert.ok('VersionId' in secret);
 				}
 				done();
 			})
@@ -170,11 +170,11 @@ describe('Secrets', function () {
 				assert.ok(res.length === secretCache.length);
 				for (let secret of res) {
 					assert.ok(secret);
-					assert.ok(secret.hasOwnProperty('Name'));
-					assert.ok(secret.hasOwnProperty('ARN'));
-					assert.ok(secret.hasOwnProperty('VersionId'));
-					assert.ok(secret.hasOwnProperty('SecretString'));
-					assert.ok(secret.hasOwnProperty('CreatedDate'));
+					assert.ok('Name' in secret);
+					assert.ok('ARN' in secret);
+					assert.ok('VersionId' in secret);
+					assert.ok('SecretString' in secret);
+					assert.ok('CreatedDate' in secret);
 				}
 				done();
 			})
@@ -208,8 +208,8 @@ describe('Secrets', function () {
 
 		assert.ok(secret);
 		assert.ok(Object.prototype.toString.call(secret) === '[object Object]');
-		assert.ok(secret.hasOwnProperty('key'));
-		assert.ok(secret.hasOwnProperty('secret'));
+		assert.ok('key' in secret);
+		assert.ok('secret' in secret);
 		assert.deepStrictEqual(secret, RESULT.secret1);
 	});
 
@@ -239,11 +239,11 @@ describe('Secrets', function () {
 		}
 
 		assert.ok(secret);
-		assert.ok(secret.hasOwnProperty('Name'));
-		assert.ok(secret.hasOwnProperty('ARN'));
-		assert.ok(secret.hasOwnProperty('VersionId'));
-		assert.ok(secret.hasOwnProperty('SecretString'));
-		assert.ok(secret.hasOwnProperty('CreatedDate'));
+		assert.ok('Name' in secret);
+		assert.ok('ARN' in secret);
+		assert.ok('VersionId' in secret);
+		assert.ok('SecretString' in secret);
+		assert.ok('CreatedDate' in secret);
 	});
 
 	it('retrieve a list of all secrets', async function () {
@@ -271,8 +271,8 @@ describe('Secrets', function () {
 		);
 
 		for (let secret of list) {
-			assert.ok(secret.hasOwnProperty('Name'));
-			assert.ok(secret.hasOwnProperty('ARN'));
+			assert.ok('Name' in secret);
+			assert.ok('ARN' in secret);
 			assert.ok(regex.test(secret.Name));
 		}
 	});
@@ -352,8 +352,8 @@ describe('Secrets', function () {
 		}
 
 		result.forEach((res, i) => {
-			assert.ok(res.hasOwnProperty('value'));
-			assert.ok(res.hasOwnProperty('status'));
+			assert.ok('value' in res);
+			assert.ok('status' in res);
 			assert.ok(res.status === 'fulfilled');
 			assert.ok(
 				Object.prototype.toString.call(res.value) === '[object Array]'
