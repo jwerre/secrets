@@ -15,6 +15,7 @@ const pretty = argv.pretty || argv.p;
 const delimiter = argv.delimiter || argv.d || DELIMITER;
 const all = argv.all || argv.a;
 const time = argv.time || argv.t;
+const maxBuffer = argv.maxBuffer || argv.m;
 
 function showHelp () {
 	console.log(`
@@ -31,6 +32,7 @@ Options:
 -a, --all		Ignore the environment and retrieve all secrets (default: false).
 -n, --namespace		Namespace of all parameters.
 -t, --time		Display time it takes to retrieve config.
+-m, --max		Largest the entire config can be in bytes (default: 3 Mb).
 `);
 
 	return process.exit();
