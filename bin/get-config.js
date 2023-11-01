@@ -21,7 +21,7 @@ function showHelp () {
 	console.log(`
 Retrieve all secrets from AWS Secrets Manager. 
 
-Usage: get-config --namespace mynamespace --env production --pretty
+Usage: get-config --namespace my-namespace --env production --pretty
 
 Options:
 -h, --help		Show help.
@@ -66,6 +66,10 @@ Options:
 	
 	if (delimiter) {
 		options.delimiter = delimiter;
+	}
+
+	if (maxBuffer) {
+		options.maxBuffer = maxBuffer;
 	}
 	
 	const secrets = new Secrets(options);

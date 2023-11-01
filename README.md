@@ -225,3 +225,5 @@ Testing can be a bit finicky since AWS won't delete the secrets created in the t
 npm install
 npm test
 ```
+
+NOTE: You must have access to an AWS account with the full access to Secret Manager [additional permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awssecretsmanager.html).

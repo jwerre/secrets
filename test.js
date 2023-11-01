@@ -328,7 +328,7 @@ describe('Secrets', function () {
 		// The buffer is about 304 Bytes so this should fail but doesn't :/
 		assert.throws(() => {
 			const err = maxBufSecrets.configSync();
-			return err
+			return err;
 		}, Error, 'Max buffer it too small to get all secrets');
 		
 	});

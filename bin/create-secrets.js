@@ -91,19 +91,19 @@ function parseSecrets(obj, current) {
 		for(let key in obj) {
 			
 			let value = obj[key],
-				isInumerable = false,
+				isEnumerable = false,
 				newKey = (current ? `${current}${delimiter}${key}` : key);
 
 			// if it's the last nested object stop recursion
 			if ( Object.prototype.toString.call(value) === '[object Object]' ) {
 				
-				isInumerable = Object.keys(value).some( (key) => {
+				isEnumerable = Object.keys(value).some( (key) => {
 					return Object.prototype.toString.call(value[key]) === '[object Object]';
 				});
 
 			}
 
-			if ( isInumerable ) {
+			if ( isEnumerable ) {
 				recurse(value, newKey);
 			} else {
 

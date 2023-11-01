@@ -93,7 +93,7 @@ async function listSecrets () {
 		
 	} while (nextToken);
 	
-	// filter out any secrests that are not part of the namespace and env
+	// filter out any secrets that are not part of the namespace and env
 	let lookupStr = '^/?';
 	
 	if (namespace && namespace.length) {

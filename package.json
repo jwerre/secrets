@@ -1,44 +1,48 @@
 {
-    "name": "@jwerre/secrets",
-    "version": "2.0.3",
-    "description": "Synchronously retrieve all secretes from AWS Secrets Manager and create a tidy JSON object.",
-    "main": "index.js",
-    "homepage": "https://github.com/jwerre/secrets/blob/master/README.md",
-    "repository": "https://github.com/jwerre/secrets",
-    "scripts": {
-        "test": "./node_modules/.bin/mocha test",
-        "patch": "npm version patch && git push origin master && git push --tags && npm publish"
-    },
-    "keywords": [
-        "secrets manager",
-        "secrets",
-        "aws",
-        "configuration",
-        "config",
-        "encryption",
-        "kms",
-        "hash",
-        "app config",
-        "blocking",
-        "synchronous",
-        "cli",
-        "EC2",
-        "Lambda"
-    ],
-    "author": "Jonah Werre <jonahwerre@gmail.com>",
-    "engine": "12",
-    "license": "MIT",
-    "dependencies": {
-        "@aws-sdk/client-secrets-manager": "^3.387.0",
-        "js-yaml": "^3.14.0",
-        "minimist": "^1.2.6"
-    },
-    "devDependencies": {
-        "mocha": "^10.2.0"
-    },
-    "bin": {
-        "create-secrets": "./bin/create-secrets.js",
-        "delete-secrets": "./bin/delete-secrets.js",
-        "get-config": "./bin/get-config.js"
-    }
+	"name": "@jwerre/secrets",
+	"version": "2.0.3",
+	"description": "Synchronously retrieve all secretes from AWS Secrets Manager and create a tidy JSON object.",
+	"main": "index.js",
+	"homepage": "https://github.com/jwerre/secrets/blob/master/README.md",
+	"repository": "https://github.com/jwerre/secrets",
+	"scripts": {
+		"test": "./node_modules/.bin/mocha test",
+		"spell": "cspell ./",
+		"lint": "eslint lib bin test.js index.js",
+		"patch": "npm version patch && git push origin master && git push --tags && npm publish"
+	},
+	"keywords": [
+		"secrets manager",
+		"secrets",
+		"aws",
+		"configuration",
+		"config",
+		"encryption",
+		"kms",
+		"hash",
+		"app config",
+		"blocking",
+		"synchronous",
+		"cli",
+		"EC2",
+		"Lambda"
+	],
+	"author": "Jonah Werre <jonahwerre@gmail.com>",
+	"engine": "12",
+	"license": "MIT",
+	"dependencies": {
+		"@aws-sdk/client-secrets-manager": "^3.438.0",
+		"js-yaml": "^3.14.0",
+		"minimist": "^1.2.6"
+	},
+	"devDependencies": {
+		"cspell": "^7.3.8",
+		"eslint": "^8.52.0",
+		"mocha": "^10.2.0"
+	},
+	"bin": {
+		"create-secrets": "./bin/create-secrets.js",
+		"delete-secrets": "./bin/delete-secrets.js",
+		"get-config": "./bin/get-config.js"
+	}
 }
