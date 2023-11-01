@@ -4,7 +4,7 @@ const argv = require('minimist')(process.argv.slice(2));
 const fs = require('fs').promises;
 const {inspect} = require('util');
 const yaml = require('js-yaml');
-const AWS = require('aws-sdk');
+const {SecretsManager} = require('@aws-sdk/client-secrets-manager');
 
 const {F_OK, R_OK} = require('fs').constants;
 const ENV = 'development';
@@ -129,12 +129,12 @@ function parseSecrets(obj, current) {
 
 function createSecrets (list) {
 	
-	const secretsmanager = new AWS.SecretsManager({region:region});
-	let promises = [];
+	const secretsmanager = new SecretsManager({ region:region });
+	const promises = [];
 	
 	for (let item of list) {
 		
-		let params = {
+		const params = {
 			Name: item.key,
 			KmsKeyId: kms,
 			SecretString: item.value,
@@ -150,7 +150,7 @@ function createSecrets (list) {
 			
 		}
 
-		let promise = secretsmanager.createSecret(params).promise();
+		const promise = secretsmanager.createSecret(params);
 		promises.push(promise);
 
 	}

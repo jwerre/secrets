@@ -24,4 +24,4 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 - [ ] `npm run spell`
 - [ ] `npm run lint`
 - [ ] `npm audit`
-- [ ] `npm test` (see README.md)
+- [ ] `npm test`
