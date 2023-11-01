@@ -2,7 +2,7 @@
 
 const argv = require('minimist')(process.argv.slice(2));
 const {inspect} = require('util');
-const { SecretsManager } = require("@aws-sdk/client-secrets-manager");
+const { SecretsManager } = require('@aws-sdk/client-secrets-manager');
 const readline = require('readline');
 const readln = readline.createInterface({
 	input: process.stdin,
