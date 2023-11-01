@@ -6,7 +6,7 @@
 	"homepage": "https://github.com/jwerre/secrets/blob/master/README.md",
 	"repository": "https://github.com/jwerre/secrets",
 	"scripts": {
-		"test": "./node_modules/.bin/mocha test",
+		"test": "mocha test",
 		"spell": "cspell ./",
 		"lint": "eslint lib bin test.js index.js",
 		"patch": "npm version patch && git push origin master && git push --tags && npm publish"
