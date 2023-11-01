@@ -55,28 +55,8 @@ const FIXTURES = [
 	},
 ];
 
-const RESULT = {
-	secret1: {
-		key: 'peter@example.com',
-		secret: 'pumpkins',
-	},
-	secret2: 'pumpkins',
-	secret3: 4,
-	secret4: true,
-	secret5: [1, 2, 3],
-	secret6: [1, 'peach', null, ['apple'], { yes: true }],
-	nested: {
-		secret: {
-			1: 5,
-			2: ['apple', 'peach', 'banana'],
-			auth: {
-				username: 'joe@example.com',
-				password: 'p3@ches',
-			},
-		},
-	},
-};
 
+const RESULT = {};
 
 describe('Secrets', function () {
 	this.timeout(4000);
@@ -84,10 +64,25 @@ describe('Secrets', function () {
 	let secrets, secretCache;
 
 	before(function () {
+		// build the expected result
+		RESULT.secret1 = FIXTURES[0].secrets;
+		RESULT.secret2 = FIXTURES[1].secrets;
+		RESULT.secret3 = FIXTURES[2].secrets;
+		RESULT.secret4 = FIXTURES[3].secrets;
+		RESULT.secret5 = FIXTURES[4].secrets;
+		RESULT.secret6 = FIXTURES[5].secrets;
+		RESULT.nested = {
+			secret: {
+				1: FIXTURES[6].secrets,
+				2: FIXTURES[7].secrets,
+				auth: FIXTURES[8].secrets,
+			},
+		};
+
 		secrets = new Secrets({
 			env: 'unit-testing',
 			region: 'us-east-1',
-			namespace: '__secrets__',
+			namespace: `__secrets-${new Date().getTime()}__`,
 		});
 	});
 
@@ -188,7 +183,7 @@ describe('Secrets', function () {
 
 	it('should synchronously retrieve a single secret string', function () {
 		let secret,
-			id = '__secrets__/unit-testing/secret2';
+			id = `${secrets.namespace}/${secrets.env}/secret2`;
 
 		try {
 			secret = secrets.getSecretSync({ id: id });
@@ -203,7 +198,7 @@ describe('Secrets', function () {
 
 	it('should synchronously retrieve a single secret and return a secret object', function () {
 		let secret,
-			id = '__secrets__/unit-testing/secret1';
+			id = `${secrets.namespace}/${secrets.env}/secret1`;
 
 		try {
 			secret = secrets.getSecretSync({ id: id });
@@ -220,7 +215,7 @@ describe('Secrets', function () {
 
 	it('should synchronously retrieve a single secret mixed array', function () {
 		let secret,
-			id = '__secrets__/unit-testing/secret6';
+			id = `${secrets.namespace}/${secrets.env}/secret6`;
 
 		try {
 			secret = secrets.getSecretSync({ id: id });
@@ -253,6 +248,8 @@ describe('Secrets', function () {
 
 	it('retrieve a list of all secrets', async function () {
 		this.timeout(4000);
+		this.retries(3);
+
 		const regex = new RegExp(`^${secrets.namespace}/${secrets.env}/.+`);
 
 		let list;
@@ -267,7 +264,11 @@ describe('Secrets', function () {
 		assert.ok(Array.isArray(list));
 		// console.log(list);
 		// console.log(list.length, secretCache.length);
-		assert.ok(list.length === secretCache.length);
+		assert.strictEqual(
+			list.length,
+			secretCache.length,
+			`The list should have length of ${secretCache.length} but only has ${list.length} items.`
+		);
 
 		for (let secret of list) {
 			assert.ok(secret.hasOwnProperty('Name'));
@@ -280,6 +281,7 @@ describe('Secrets', function () {
 		// test should't take this long but could depending on how long the
 		// secrets take to retrieve from AWS.
 		this.timeout(4000);
+		this.retries(3);
 
 		let config;
 
@@ -323,7 +325,7 @@ describe('Secrets', function () {
 		});
 
 
-		// The buffer is about 304 Bytes so this should fail but doesn't
+		// The buffer is about 304 Bytes so this should fail but doesn't :/
 		assert.throws(() => {
 			const err = maxBufSecrets.configSync();
 			return err
