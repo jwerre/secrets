@@ -1,0 +1,37 @@
+name: Secrets
+
+on:
+    - push
+    - pull_request
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+
+        concurrency:
+            group: ${{ github.ref }}
+            cancel-in-progress: true
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+
+            - name: Install packages
+              run: |
+                  npm ci --ignore-scripts
+
+            - name: Security audit
+              run: npm audit --audit-level=moderate --omit=dev
+
+            - name: Lint check
+              run: npm run lint
+
+            - name: Spell check
+              run: npm run spell
+
+            # - name: Test (tests can only be run with valid AWS API key)
+            #   run: npm test
+
