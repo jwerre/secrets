@@ -13,11 +13,17 @@ npm install --save @jwerre/secrets
 ### Get all secrets
 
 ```js
-const config = require('secrets').configSync({
+const {configSync} = require('@jwerre/secrets');
+
+// Retrieve all secrets that begin with 'my-project/production/'
+const config = configSync({
 	region: 'us-east-1',
+	namespace: 'my-project',
+	env: 'production'
 });
 ```
 
+#### Result:
 ```js
 {
 	name: 'My App'
@@ -42,28 +48,29 @@ const config = require('secrets').configSync({
 Loading _all_ your secrets may not always be the best option. It's much faster to load a single secret like this:
 
 ```js
-const config = require('secrets').secretSync({
-	region: 'us-east-2',
-	id: '/my-co/apis/',
-});
+const {secretSync} = require('@jwerre/secrets')
+const dbCredentials = secretSync({ region: 'us-east-1', id: '/my-project/production/db' });
 ```
+
+#### Result:
+```js
+{
+	username: 'admin',
+	password: 'Super$ercret!'
+}
+```
+
 
 ### Asynchronously get all secrets
 
-In most cases, you'll want to get your configuration object synchronously since your app probably won't run without it. But, if you prefer, you can also get your secrets asynchronously.
+In most cases, you'll want to get your configuration object synchronously before your application starts up. But, if you prefer, you can also get your secrets asynchronously like this.
 
 ```js
-const {config} = require('secrets');
+const {config} = require('@jwerre/secrets');
 
 ( async function(){
 
-	let appConfig;
-
-	try {
-		appConfig = await config(options);
-	} else (err) {
-		return Promise.reject(err)
-	}
+	const appConfig = await config(options);
 
 })();
 ```
@@ -119,7 +126,7 @@ If you plan on using any of the higher level methods or any of the CLI tools in 
 You may want to access the higher level API which can be done like this:
 
 ```js
-const { Secrets } = require('secrets');
+const { Secrets } = require('@jwerre/secrets');
 const secret = new Secrets(options);
 const config = secrets.configSync();
 ```
