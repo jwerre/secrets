@@ -3,7 +3,10 @@
 	"version": "2.0.4",
 	"description": "Synchronously retrieve all secretes from AWS Secrets Manager and create a tidy JSON object.",
 	"homepage": "https://github.com/jwerre/secrets/blob/master/README.md",
-	"repository": "https://github.com/jwerre/secrets",
+	"repository": {
+		"type": "git",
+		"url": "github:jwerre/secrets"
+	},
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.mjs",
 	"exports": {
@@ -18,6 +21,8 @@
 		"lint": "eslint .",
 		"patch": "npm version patch && git push origin master && git push --tags && npm publish",
 		"spell": "cspell .",
+		"release": "semantic-release",
+		"release:dry": "semantic-release --dry-run",
 		"test": "mocha test",
 		"test:cjs": "npm run build && node -e 'const {Secrets} = require(\"./dist/index.cjs\"); console.log(Secrets);'",
 		"test:esm": "npm run build && node --input-type=module -e 'import {Secrets} from \"./dist/index.mjs\"; console.log(Secrets);'",
