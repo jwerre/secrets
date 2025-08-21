@@ -24,8 +24,6 @@
 		"release": "semantic-release",
 		"release:dry": "semantic-release --dry-run",
 		"test": "mocha test",
-		"test:cjs": "npm run build && node -e 'const {Secrets} = require(\"./dist/index.cjs\"); console.log(Secrets);'",
-		"test:esm": "npm run build && node --input-type=module -e 'import {Secrets} from \"./dist/index.mjs\"; console.log(Secrets);'",
 		"type-check": "tsc --noEmit"
 	},
 	"keywords": [

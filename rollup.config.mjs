@@ -23,4 +23,13 @@ export default [
 		plugins: [nodeResolve(), json()],
 		external: ['@aws-sdk/client-secrets-manager'],
 	},
+
+	// Copy readline.js to dist
+	{
+		input: 'lib/_read.mjs',
+		output: {
+			file: 'dist/_read.mjs',
+			format: 'es',
+		},
+	},
 ];
