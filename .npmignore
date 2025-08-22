@@ -33,6 +33,7 @@ yarn-error.log*
 node_modules/
 .nyc_output
 coverage/
+rollup.config.mjs
 
 # Git files
 .git
