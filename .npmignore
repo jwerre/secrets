@@ -12,7 +12,7 @@ eslint.config.mjs
 # Documentation files that aren't needed in the package
 *.md
 !README.md
-!LICENSE
+!LICENSE.txt
 
 # IDE and OS files
 .DS_Store
@@ -34,6 +34,7 @@ node_modules/
 .nyc_output
 coverage/
 rollup.config.mjs
+eslint.config.mjs
 
 # Git files
 .git
