@@ -13,7 +13,7 @@ npm install --save @jwerre/secrets
 ### Get all secrets
 
 ```js
-const {configSync} = require('@jwerre/secrets');
+import {configSync} from '@jwerre/secrets';
 
 // Retrieve all secrets that begin with 'my-project/production/'
 const config = configSync({
@@ -48,7 +48,7 @@ const config = configSync({
 Loading _all_ your secrets may not always be the best option. It's much faster to load a single secret like this:
 
 ```js
-const {secretSync} = require('@jwerre/secrets')
+import {secretSync} from '@jwerre/secrets';
 const dbCredentials = secretSync({ region: 'us-east-1', id: '/my-project/production/db' });
 ```
 
@@ -66,7 +66,7 @@ const dbCredentials = secretSync({ region: 'us-east-1', id: '/my-project/product
 In most cases, you'll want to get your configuration object synchronously before your application starts up. But, if you prefer, you can also get your secrets asynchronously like this.
 
 ```js
-const {config} = require('@jwerre/secrets');
+import {config} from '@jwerre/secrets';
 
 ( async function(){
 
@@ -126,7 +126,7 @@ If you plan on using any of the higher level methods or any of the CLI tools in 
 You may want to access the higher level API which can be done like this:
 
 ```js
-const { Secrets } = require('@jwerre/secrets');
+import { Secrets } from '@jwerre/secrets';
 const secret = new Secrets(options);
 const config = secrets.configSync();
 ```

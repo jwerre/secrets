@@ -1,5 +1,5 @@
-const assert = require('assert');
-const { Secrets } = require('./index');
+import assert from 'assert';
+import { Secrets } from '../lib/index.mjs';
 
 const FIXTURES = [
 	{
@@ -54,7 +54,6 @@ const FIXTURES = [
 		},
 	},
 ];
-
 
 const RESULT = {};
 
@@ -313,7 +312,6 @@ describe('Secrets', function () {
 	});
 
 	it.skip('should not synchronously generate config since buffer is too small', function () {
-
 		this.timeout(4000);
 
 		// get all the same test secrets but with a max buffer of 1
@@ -321,16 +319,18 @@ describe('Secrets', function () {
 			env: secrets.env,
 			region: secrets.region,
 			namespace: secrets.namespace,
-			maxBuffer: .1,
+			maxBuffer: 0.1,
 		});
 
-
 		// The buffer is about 304 Bytes so this should fail but doesn't :/
-		assert.throws(() => {
-			const err = maxBufSecrets.configSync();
-			return err;
-		}, Error, 'Max buffer it too small to get all secrets');
-		
+		assert.throws(
+			() => {
+				const err = maxBufSecrets.configSync();
+				return err;
+			},
+			Error,
+			'Max buffer it too small to get all secrets'
+		);
 	});
 
 	it.skip('should produce a rate limit error, wait and try again', async function () {

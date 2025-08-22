@@ -1,20 +1,8 @@
 {
 	"version": "0.2",
 	"language": "en",
-	"words": [
-		"readln"
-	],
-	"ignoreWords": [
-		"ches",
-		"ercret",
-		"jcnr",
-		"jwerre",
-		"rufmv"
-	],
+	"words": ["readln", "Werre"],
+	"ignoreWords": ["ches", "ercret", "jcnr", "jwerre", "rufmv", "retryable"],
 	"flagWords": [],
-	"ignorePaths": [
-		"package.json",
-		"package-lock.json",
-		"node_modules/**"
-	]
+	"ignorePaths": ["package.json", "package-lock.json", "node_modules/**"]
 }
