@@ -17,6 +17,7 @@
 	},
 	"types": "types/index.d.ts",
 	"scripts": {
+		"check": "npm audit --audit-level=moderate --omit=dev && npm run lint && npm run spell && npm test && npm run build && npm run release:dry",
 		"build": "rm -rf dist && rollup -c",
 		"lint": "eslint .",
 		"patch": "npm version patch && git push origin master && git push --tags && npm publish",
@@ -48,21 +49,21 @@
 	"dependencies": {
 		"@aws-sdk/client-secrets-manager": "^3.873.0",
 		"commander": "^11.1.0",
-		"js-yaml": "^4.1.0"
+		"js-yaml": "^4.1.1"
 	},
 	"devDependencies": {
 		"@rollup/plugin-json": "^6.1.0",
-		"@rollup/plugin-node-resolve": "^16.0.1",
+		"@rollup/plugin-node-resolve": "^16.0.3",
 		"@semantic-release/commit-analyzer": "^13.0.1",
 		"@semantic-release/github": "^11.0.4",
 		"@semantic-release/npm": "^12.0.2",
-		"@semantic-release/release-notes-generator": "^14.0.3",
+		"@semantic-release/release-notes-generator": "^14.1.0",
 		"@types/node": "^20.19.11",
 		"cspell": "^9.2.0",
-		"eslint": "^9.33.0",
-		"mocha": "^11.7.1",
-		"rollup": "^4.47.1",
-		"semantic-release": "^24.2.7",
+		"eslint": "^9.39.1",
+		"mocha": "^11.7.5",
+		"rollup": "^4.53.3",
+		"semantic-release": "^24.2.9",
 		"typescript": "^5.9.2"
 	},
 	"bin": {
