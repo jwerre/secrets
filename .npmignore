@@ -1,14 +1,3 @@
-# Source files (dist is built from these)
-lib/
-rollup.config.js
-
-# Development files
-test
-eslint.config.mjs
-.github/
-.cspell.json
-.releaserc.yaml
-
 # Documentation files that aren't needed in the package
 *.md
 !README.md
@@ -30,11 +19,19 @@ yarn-error.log*
 .npm
 
 # Development dependencies
-node_modules/
+.cspell.json
+.github/
 .nyc_output
+.prettierignore
+.prettierrc
+.releaserc.yaml
 coverage/
-rollup.config.mjs
-eslint.config.mjs
+eslint.config.js
+node_modules/
+package-lock.json
+test
+tsconfig.json
+vitest.config.ts
 
 # Git files
 .git

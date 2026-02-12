@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import Secrets from '../lib/secrets.mjs';
 import { inspect } from 'util';
+import Secrets from '../lib/secrets.js';
 
 const ENV = 'development';
 const REGION = 'us-west-2';

@@ -1,17 +1,12 @@
 branches:
-    - master
-    - next
-    - next-major
-    - name: beta
-      prerelease: true
-    - name: alpha
-      prerelease: true
+  - master
+  - name: beta
+    prerelease: true
+  - name: alpha
+    prerelease: true
 plugins:
-    - '@semantic-release/commit-analyzer'
-    - '@semantic-release/release-notes-generator'
-    - - '@semantic-release/npm'
-      - pkgRoot: '.'
-    - - '@semantic-release/github'
-      - assets:
-          - path: 'dist/**/*'
-            label: 'Distribution files'
+  - '@semantic-release/commit-analyzer'
+  - - '@semantic-release/npm'
+    - pkgRoot: '.'
+  - - '@semantic-release/github'
+    - assets: []

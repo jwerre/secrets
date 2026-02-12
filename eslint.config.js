@@ -1,24 +1,23 @@
 import globals from 'globals';
 import js from '@eslint/js';
+import prettier from 'eslint-config-prettier';
 
 export default [
 	{
 		ignores: ['dist/'],
 	},
 	{
-		files: ['**/*.mjs'],
+		files: ['**/*.js'],
 		languageOptions: {
-			ecmaVersion: 11,
+			ecmaVersion: 2023,
 			sourceType: 'module',
 			parserOptions: {
 				ecmaFeatures: {
 					globalReturn: false,
-					impliedStrict: true,
 					jsx: false,
 				},
 			},
 			globals: {
-				...globals.mocha,
 				...globals.node,
 			},
 		},
@@ -39,4 +38,5 @@ export default [
 			],
 		},
 	},
+	prettier,
 ];

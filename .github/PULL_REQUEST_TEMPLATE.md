@@ -22,6 +22,7 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 ## Checklist:
 
 - [ ] `npm run spell`
+- [ ] `npm run format`
 - [ ] `npm run lint`
 - [ ] `npm audit`
 - [ ] `npm test`

@@ -7,24 +7,27 @@
 		"type": "git",
 		"url": "github:jwerre/secrets"
 	},
-	"main": "./dist/index.cjs",
-	"module": "./dist/index.mjs",
+	"type": "module",
+	"main": "./lib/index.js",
 	"exports": {
-		".": {
-			"import": "./dist/index.mjs",
-			"require": "./dist/index.cjs"
-		}
+		".": "./lib/index.js",
+		"./*": "./lib/*.js"
 	},
+	"files": [
+		"lib",
+		"types",
+		"bin"
+	],
 	"types": "types/index.d.ts",
 	"scripts": {
-		"check": "npm audit --audit-level=moderate --omit=dev && npm run lint && npm run spell && npm test && npm run build && npm run release:dry",
-		"build": "rm -rf dist && rollup -c",
+		"check": "npm audit --audit-level=moderate --omit=dev && npm run format && npm run lint && npm run spell && vitest run --reporter=github-actions && npm run release:dry",
+		"format": "prettier --check .",
+		"format:write": "prettier --write .",
 		"lint": "eslint .",
-		"patch": "npm version patch && git push origin master && git push --tags && npm publish",
-		"spell": "cspell .",
 		"release": "semantic-release",
 		"release:dry": "semantic-release --dry-run",
-		"test": "mocha test",
+		"spell": "cspell .",
+		"test": "vitest",
 		"type-check": "tsc --noEmit"
 	},
 	"keywords": [
@@ -44,31 +47,29 @@
 		"Lambda"
 	],
 	"author": "Jonah Werre <jonahwerre@gmail.com>",
-	"engine": "12",
+	"engine": "20",
 	"license": "MIT",
 	"dependencies": {
-		"@aws-sdk/client-secrets-manager": "^3.873.0",
-		"commander": "^11.1.0",
+		"@aws-sdk/client-secrets-manager": "^3.988.0",
+		"commander": "^14.0.3",
 		"js-yaml": "^4.1.1"
 	},
 	"devDependencies": {
-		"@rollup/plugin-json": "^6.1.0",
-		"@rollup/plugin-node-resolve": "^16.0.3",
 		"@semantic-release/commit-analyzer": "^13.0.1",
-		"@semantic-release/github": "^11.0.4",
-		"@semantic-release/npm": "^12.0.2",
-		"@semantic-release/release-notes-generator": "^14.1.0",
+		"@semantic-release/github": "^12.0.5",
+		"@semantic-release/npm": "^13.1.4",
 		"@types/node": "^20.19.11",
 		"cspell": "^9.2.0",
 		"eslint": "^9.39.1",
-		"mocha": "^11.7.5",
-		"rollup": "^4.53.3",
-		"semantic-release": "^24.2.9",
-		"typescript": "^5.9.2"
+		"eslint-config-prettier": "^10.1.8",
+		"prettier": "^3.8.1",
+		"semantic-release": "^25.0.3",
+		"typescript": "^5.9.2",
+		"vitest": "^4.0.18"
 	},
 	"bin": {
-		"create-secrets": "./bin/create-secrets.mjs",
-		"delete-secrets": "./bin/delete-secrets.mjs",
-		"get-config": "./bin/get-config.mjs"
+		"create-secrets": "./bin/create-secrets.js",
+		"delete-secrets": "./bin/delete-secrets.js",
+		"get-config": "./bin/get-config.js"
 	}
 }
