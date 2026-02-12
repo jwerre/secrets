@@ -2,22 +2,25 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
 	test: {
-		include: [`test/**/*.{test,spec}.js`],
-
-		// Global test timeout since tests are dependent on external AWS API
-		testTimeout: 4000,
-
-		// Environment
-		environment: 'node',
-
-		// Reporter
-		reporters: ['verbose'],
-
 		coverage: {
 			provider: 'v8',
-			reporter: ['text', 'json', 'html'],
-			include: ['lib/**/*.js'],
-			exclude: ['tests/**'],
+			include: ['src/lib/**/*'],
 		},
+		projects: [
+			{
+				test: {
+					name: 'main',
+					include: ['test/main.test.js'],
+					environment: 'node',
+				},
+			},
+			{
+				test: {
+					name: 'integration',
+					include: ['test/integration.test.js'],
+					environment: 'node',
+				},
+			},
+		],
 	},
 });

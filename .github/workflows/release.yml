@@ -35,8 +35,8 @@ jobs:
       - name: Spell check
         run: npm run spell
 
-      # - name: Test (tests can only be run with valid AWS API key)
-      #   run: npm test
+      - name: Test
+        run: npm run test:ci
 
       - name: Release
         run: npm run release
