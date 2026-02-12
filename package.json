@@ -20,7 +20,7 @@
 	],
 	"types": "types/index.d.ts",
 	"scripts": {
-		"check": "npm audit --audit-level=moderate --omit=dev && npm run format && npm run lint && npm run spell && vitest run --reporter=github-actions && npm run release:dry",
+		"check": "npm audit --audit-level=moderate --omit=dev && npm run format && npm run lint && npm run spell && npm test:ci && npm run release:dry",
 		"format": "prettier --check .",
 		"format:write": "prettier --write .",
 		"lint": "eslint .",
@@ -28,6 +28,7 @@
 		"release:dry": "semantic-release --dry-run",
 		"spell": "cspell .",
 		"test": "vitest",
+		"test:ci": "vitest run",
 		"type-check": "tsc --noEmit"
 	},
 	"keywords": [

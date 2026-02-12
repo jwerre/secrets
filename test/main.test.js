@@ -202,8 +202,7 @@ describe('Secrets', function () {
 	});
 
 	it('should synchronously retrieve a single secret and return the raw AWS response', function () {
-		const item =
-			secretCache[Math.floor(Math.random() * secretCache.length)];
+		const item = secretCache[Math.floor(Math.random() * secretCache.length)];
 		const secret = secrets.getSecretSync({ id: item.Name, raw: true });
 
 		expect(secret).toBeDefined();
@@ -234,19 +233,15 @@ describe('Secrets', function () {
 		}
 	});
 
-	it(
-		'should generate a config with all test secrets',
-		{ retries: 3 },
-		async function () {
-			// test should't take this long but could depending on how long the
-			// secrets take to retrieve from AWS.
+	it('should generate a config with all test secrets', { retries: 3 }, async function () {
+		// test should't take this long but could depending on how long the
+		// secrets take to retrieve from AWS.
 
-			const config = await secrets.config();
+		const config = await secrets.config();
 
-			expect(config).toBeDefined();
-			expect(config).toStrictEqual(RESULT);
-		}
-	);
+		expect(config).toBeDefined();
+		expect(config).toStrictEqual(RESULT);
+	});
 
 	it('should synchronously generate config with all test secrets', function () {
 		const config = secrets.configSync();
