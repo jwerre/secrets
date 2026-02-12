@@ -48,9 +48,7 @@ function prompt(question) {
 	return new Promise(function (resolve, reject) {
 		readln.question(question, function (answer) {
 			resolve(
-				(answer &&
-					answer.length &&
-					answer.trim().toLowerCase() === 'yes') ||
+				(answer && answer.length && answer.trim().toLowerCase() === 'yes') ||
 					answer.trim().toLowerCase() === 'y'
 			);
 		});
@@ -146,9 +144,7 @@ Secret Manager. Are you sure you want to continue? [y/N] `;
 		}
 
 		if (!abort) {
-			return Promise.reject(
-				'Aborting... Nothing was deleted your secrets are safe.'
-			);
+			return Promise.reject('Aborting... Nothing was deleted your secrets are safe.');
 		}
 	}
 

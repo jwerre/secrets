@@ -24,18 +24,10 @@ program
 		'The AWS Secrets Manager region',
 		process.env.AWS_REGION || REGION
 	)
-	.option(
-		'-e, --env <environment>',
-		'Which environment to use in the secret name',
-		ENV
-	)
+	.option('-e, --env <environment>', 'Which environment to use in the secret name', ENV)
 	.option('-k, --kms <keyId>', 'KMS key id to use for encryption')
 	.option('-n, --namespace <namespace>', 'Namespace of all parameters')
-	.option(
-		'-d, --delimiter <delimiter>',
-		'Delimiter to use for secret name',
-		DELIMITER
-	)
+	.option('-d, --delimiter <delimiter>', 'Delimiter to use for secret name', DELIMITER)
 	.option('-i, --in <file>', 'Input file path (alternative to argument)')
 	.parse(process.argv);
 
@@ -57,9 +49,7 @@ async function getConfig(path) {
 		await fs.access(path, F_OK | R_OK);
 	} catch (err) {
 		console.log(err);
-		return Promise.reject(
-			`${path} ${err.code === 'ENOENT' ? 'does not exist' : 'is read-only'}.`
-		);
+		return Promise.reject(`${path} ${err.code === 'ENOENT' ? 'does not exist' : 'is read-only'}.`);
 	}
 
 	try {
@@ -97,10 +87,7 @@ function parseSecrets(obj, current) {
 			// if it's the last nested object stop recursion
 			if (Object.prototype.toString.call(value) === '[object Object]') {
 				isEnumerable = Object.keys(value).some((key) => {
-					return (
-						Object.prototype.toString.call(value[key]) ===
-						'[object Object]'
-					);
+					return Object.prototype.toString.call(value[key]) === '[object Object]';
 				});
 			}
 
@@ -135,10 +122,7 @@ function createSecrets(list) {
 			SecretString: item.value,
 		};
 
-		if (
-			Object.prototype.toString.call(params.SecretString) !==
-			'[object String]'
-		) {
+		if (Object.prototype.toString.call(params.SecretString) !== '[object String]') {
 			try {
 				params.SecretString = JSON.stringify(params.SecretString);
 			} catch {

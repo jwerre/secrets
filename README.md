@@ -13,17 +13,18 @@ npm install --save @jwerre/secrets
 ### Get all secrets
 
 ```js
-import {configSync} from '@jwerre/secrets';
+import { configSync } from '@jwerre/secrets';
 
 // Retrieve all secrets that begin with 'my-project/production/'
 const config = configSync({
 	region: 'us-east-1',
 	namespace: 'my-project',
-	env: 'production'
+	env: 'production',
 });
 ```
 
 #### Result:
+
 ```js
 {
 	name: 'My App'
@@ -48,11 +49,12 @@ const config = configSync({
 Loading _all_ your secrets may not always be the best option. It's much faster to load a single secret like this:
 
 ```js
-import {secretSync} from '@jwerre/secrets';
+import { secretSync } from '@jwerre/secrets';
 const dbCredentials = secretSync({ region: 'us-east-1', id: '/my-project/production/db' });
 ```
 
 #### Result:
+
 ```js
 {
 	username: 'admin',
@@ -60,18 +62,15 @@ const dbCredentials = secretSync({ region: 'us-east-1', id: '/my-project/product
 }
 ```
 
-
 ### Asynchronously get all secrets
 
 In most cases, you'll want to get your configuration object synchronously before your application starts up. But, if you prefer, you can also get your secrets asynchronously like this.
 
 ```js
-import {config} from '@jwerre/secrets';
+import { config } from '@jwerre/secrets';
 
-( async function(){
-
+(async function () {
 	const appConfig = await config(options);
-
 })();
 ```
 
@@ -90,10 +89,10 @@ import {config} from '@jwerre/secrets';
 
 Your secrets should be named appropriately so they can be parsed into a proper object. They should also have an environment like 'production' or 'development' so the secrets can be loaded into the correct environment. You may use a namespace but that\'s not required. The [example](#example) above was generated from secrets with the following names:
 
--   `acme-co/production/name`
--   `acme-co/production/db`
--   `acme-co/production/session`
--   `acme-co/production/apis/google`
+- `acme-co/production/name`
+- `acme-co/production/db`
+- `acme-co/production/session`
+- `acme-co/production/apis/google`
 
 ### Delimiters
 
@@ -108,10 +107,7 @@ You'll need to give your application or service permission to access your secret
 	"Version": "2012-10-17",
 	"Statement": [
 		{
-			"Action": [
-				"secretsmanager:ListSecrets",
-				"secretsmanager:GetSecretValue"
-			],
+			"Action": ["secretsmanager:ListSecrets", "secretsmanager:GetSecretValue"],
 			"Effect": "Allow",
 			"Resource": "*"
 		}
@@ -161,13 +157,13 @@ Create a new secret in AWS Secrets Manager. This method will automatically appen
 
 Retrieve a secret from AWS Secrets Manager
 
-| Option          | Type    | Description                                                                                                                                                                                |
-| --------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| id              | String  | The secret id.                                                                                                                                                                             |
-| version         | String  | The secret version.                                                                                                                                                                        |
-| stage           | String  | Staging label attached to the version.                                                                                                                                                     |
-| raw             | Boolean | Return the full response from AWS.                                                                                                                                                         |
-| maxBuffer=65536 | Number  | Largest amount of data in Bytes the secret can be (default: 65536 Bytes) which is the quota. See [Secret Manager quotas]( https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_limits.html#quotas). |
+| Option          | Type    | Description                                                                                                                                                                                                         |
+| --------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id              | String  | The secret id.                                                                                                                                                                                                      |
+| version         | String  | The secret version.                                                                                                                                                                                                 |
+| stage           | String  | Staging label attached to the version.                                                                                                                                                                              |
+| raw             | Boolean | Return the full response from AWS.                                                                                                                                                                                  |
+| maxBuffer=65536 | Number  | Largest amount of data in Bytes the secret can be (default: 65536 Bytes) which is the quota. See [Secret Manager quotas](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_limits.html#quotas). |
 
 ##### getSecretSync({})
 

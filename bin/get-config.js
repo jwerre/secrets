@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import Secrets from '../lib/secrets.mjs';
 import { inspect } from 'util';
+import Secrets from '../lib/secrets.js';
 
 const ENV = 'development';
 const REGION = 'us-west-2';
@@ -18,24 +18,13 @@ program
 		'The AWS Secrets Manager region',
 		process.env.AWS_REGION || REGION
 	)
-	.option(
-		'-e, --env <environment>',
-		'Which environment to use in the secret name',
-		ENV
-	)
+	.option('-e, --env <environment>', 'Which environment to use in the secret name', ENV)
 	.option('-d, --delimiter <delimiter>', 'Secret name delimiter', DELIMITER)
 	.option('-p, --pretty', 'Pretty output')
-	.option(
-		'-a, --all',
-		'Ignore the environment and retrieve all secrets',
-		false
-	)
+	.option('-a, --all', 'Ignore the environment and retrieve all secrets', false)
 	.option('-n, --namespace <namespace>', 'Namespace of all parameters')
 	.option('-t, --time', 'Display time it takes to retrieve config')
-	.option(
-		'-m, --maxBuffer <bytes>',
-		'Largest the entire config can be in bytes (default: 3 Mb)'
-	)
+	.option('-m, --maxBuffer <bytes>', 'Largest the entire config can be in bytes (default: 3 Mb)')
 	.parse(process.argv);
 
 const options = program.opts();
