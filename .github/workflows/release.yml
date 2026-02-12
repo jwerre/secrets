@@ -38,9 +38,6 @@ jobs:
       # - name: Test (tests can only be run with valid AWS API key)
       #   run: npm test
 
-      - name: Build dist directory
-        run: npm run build
-
       - name: Release
         run: npm run release
         env:
