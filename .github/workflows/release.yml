@@ -8,16 +8,22 @@ jobs:
   verify:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write # Required for passwordless npm publishing
+
     concurrency:
       group: ${{ github.ref }}
       cancel-in-progress: true
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
 
       - name: Install packages
         run: |
@@ -42,4 +48,3 @@ jobs:
         run: npm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
