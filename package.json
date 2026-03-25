@@ -52,22 +52,22 @@
 	"engine": "20",
 	"license": "MIT",
 	"dependencies": {
-		"@aws-sdk/client-secrets-manager": "^3.995.0",
+		"@aws-sdk/client-secrets-manager": "^3.1017.0",
 		"commander": "^14.0.3",
 		"js-yaml": "^4.1.1"
 	},
 	"devDependencies": {
 		"@semantic-release/commit-analyzer": "^13.0.1",
 		"@semantic-release/github": "^12.0.6",
-		"@semantic-release/npm": "^13.1.4",
-		"@types/node": "^25.3.0",
+		"@semantic-release/npm": "^13.1.5",
+		"@types/node": "^25.5.0",
 		"cspell": "^9.7.0",
 		"eslint": "^9.39.3",
 		"eslint-config-prettier": "^10.1.8",
 		"prettier": "^3.8.1",
 		"semantic-release": "^25.0.3",
 		"typescript": "^5.9.3",
-		"vitest": "^4.0.18"
+		"vitest": "^4.1.1"
 	},
 	"bin": {
 		"create-secrets": "./bin/create-secrets.js",
