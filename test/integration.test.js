@@ -180,7 +180,6 @@ describe(
 
 		it('should synchronously generate config with all test secrets', function () {
 			const config = secrets.configSync();
-
 			expect(config).toBeDefined();
 			expect(config).toStrictEqual(RESULT);
 		});
